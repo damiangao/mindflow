@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Mindflow Private Files
+# Keep local planning documents out of version control
+PLAN.md
+*.db
+*.sqlite
+backups/
+logs/
