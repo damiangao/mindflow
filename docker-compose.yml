@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mindflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mindflow-app
+    ports:
+      - "${GRADIO_PORT:-7860}:7860"
+    environment:
+      - APP_ENV=${APP_ENV:-development}
+      - DEBUG=${DEBUG:-true}
+      - LLM_PROVIDER=${LLM_PROVIDER:-claude}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-3-5-haiku-20241022}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///./data/mindflow.db}
+      - DATABASE_ECHO=${DATABASE_ECHO:-false}
+      - GRADIO_HOST=0.0.0.0
+      - GRADIO_PORT=7860
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ENABLE_SCHEDULER=${ENABLE_SCHEDULER:-true}
+      - TIMEZONE=${TZ:-UTC}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./.env:/app/.env
+    restart: unless-stopped
+    networks:
+      - mindflow-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:7860')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  mindflow-network:
+    driver: bridge
+
+volumes:
+  mindflow-data:
+  mindflow-logs:
