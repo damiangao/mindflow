@@ -209,6 +209,8 @@ __marimo__/
 # Mindflow Private Files
 # Keep local planning documents out of version control
 PLAN.md
+# But allow version snapshots in planning folder
+!planning/*/PLAN.md
 *.db
 *.sqlite
 backups/
