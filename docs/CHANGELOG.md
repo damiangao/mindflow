@@ -4,18 +4,46 @@
 
 ---
 
-## [Unreleased] - 2026-01-16
+## [Unreleased] - 2026-01-18
 
-### 🎉 项目重大升级
+### 🎉 架构设计完成
 
-#### 定位变更
-- **从**: 个人 AI 助理
-- **到**: 智能体操作系统（Agent OS）
+#### 核心架构确定
+- **操作系统抽象**: 输入 + 输出 + 资源调度
+- **知识库三层结构**: 方法论 → Skills → 副产品
+- **DAG 结构**: 允许多父节点,灵活关联
 
-#### 架构升级
-- 采用三层架构（应用层/服务层/底层能力）
-- 借鉴 Goose 的 Extension 系统设计
-- 支持插件化扩展和应用生态
+#### 核心机制设计
+- ✅ **关联机制**: 静态(图数据库) + 动态(向量搜索)
+- ✅ **方法论评分**: 加权归一化机制
+- ✅ **Skills 组合**: 规划式 HTN Planning
+- ✅ **用户交互**: 三级策略(静默/队列/立即)
+- ✅ **查询流程**: 渐进式设计(Phase 1 MVP → Phase 2 按需)
+- ✅ **Skills 调用**: 混合模式(instructions + called_skills)
+
+#### 文档新增
+- ✅ `docs/ARCHITECTURE.md` v1.0 - 核心架构设计
+- ✅ `docs/ARCHITECTURE_DISCUSSION.md` v1.1 - 架构讨论纪要
+- ✅ `docs/TECHNICAL_DESIGN.md` v1.1 - 技术实现方案
+
+#### 冷启动设计
+- ✅ 方法论层: 5个核心方法论
+- ✅ Skills 层: 15-20个精简 Skills
+  - 生活管理 (6个)
+  - 数据处理 (6个)
+  - 代码辅助 (3个)
+  - 通用工具 (2个)
+
+#### 技术栈确定
+- **图数据库**: Neo4j(生产) / NetworkX(开发)
+- **向量搜索**: Chroma + sentence-transformers
+- **LLM**: Claude / GPT / DeepSeek
+
+#### 关键决策
+1. 不过度设计,先简单实现再优化
+2. 向量搜索优先,图查询按需加入
+3. Skills 调用用混合模式
+4. 种子库精简,从使用中学习是核心
 
 ---
 
@@ -23,71 +51,30 @@
 
 ### Added
 - ✅ 创建 `README.md` - 项目整体介绍
-  - 项目简介和核心特点
-  - 竞品分析表格
-  - 文档索引
-  - 开发进度
-  - 贡献指南
-
 - ✅ 整合 `docs/LEARNING.md` - 技术栈学习计划
-  - 从 `TECH_STACK_LEARNING.md` 移动
-  - 3个学习阶段
-  - 详细学习路线
-
 - ✅ 创建 `docs/CHANGELOG.md` - 本文档
-  - 记录所有重要变更
-  - 版本历史
 
 ### Changed
-- 📝 简化文档结构，只保留4个核心文档
-  - README.md（项目介绍）
-  - docs/DEVELOPMENT.md（开发计划）
-  - docs/LEARNING.md（学习计划）
-  - docs/CHANGELOG.md（更新日志）
+- 📝 简化文档结构,只保留核心文档
+- 🏗️ 项目定位升级为"智能体操作系统"
 
 ### Removed
-- ❌ 删除冗余文档
-  - COMPETITOR_ANALYSIS.md（整合到 README）
-  - CROSS_PLATFORM.md（整合到 DEVELOPMENT）
-  - DATA_MIGRATION.md（整合到 DEVELOPMENT）
-  - DIFFERENTIATION_STRATEGY.md（整合到 README）
-  - KNOWLEDGE_BASE_DESIGN.md（整合到 DEVELOPMENT）
-  - UPDATE_SUMMARY.md（替换为 CHANGELOG）
+- ❌ 删除冗余文档,整合到核心文档
 
 ---
 
 ## [2026-01-15] - 架构设计和竞品分析
 
 ### Added
-- ✅ 完成竞品分析（DeepSeek）
-  - 分析 6 个直接/间接竞品
-  - 市场空白分析
-  - 差异化策略制定
-
+- ✅ 完成竞品分析
 - ✅ 创建开发计划 v2.0
-  - 6 个 Phase 开发路线图
-  - 预计 12-16 周完成
-  - 详细任务清单
-
 - ✅ 跨平台支持设计
-  - Windows、macOS、Linux
-  - 未来支持 Android、iOS
-  - 平台特定数据目录
-
 - ✅ 数据迁移方案
-  - 本地导出/导入（Phase 1）
-  - 云端同步（Phase 5，可选）
-  - 跨平台兼容
-
 - ✅ 知识库设计
-  - 向量数据库（Phase 3）
-  - 知识图谱（Phase 5，可选）
-  - 混合方案
 
 ### Changed
 - 📝 项目定位从"个人助理"升级为"智能体操作系统"
 - 🏗️ 架构从单体应用升级为三层架构
-- 🔌 引入 Extension 插件系统
 
 ---
 
@@ -96,16 +83,7 @@
 ### Added
 - ✅ 创建项目仓库
 - ✅ 初始文档结构
-  - ARCHITECTURE.md
-  - DATABASE.md
-  - DEPLOYMENT.md
-  - DEVELOPMENT.md
-  - LLM_CONFIG.md
-
 - ✅ 技术栈选型
-  - Python + Gradio
-  - LangGraph + Claude API
-  - SQLite + SQLAlchemy
 
 ---
 
@@ -118,13 +96,12 @@
 - **Patch**: Bug 修复和小改进
 
 ### 当前版本
-- **v0.1.0-alpha** - 规划阶段
+- **v0.2.0-alpha** - 架构设计完成
 
 ### 计划版本
-- **v0.2.0-alpha** - Phase 0 完成（架构设计）
-- **v0.3.0-alpha** - Phase 1 完成（Extension 系统）
-- **v0.5.0-beta** - Phase 3 完成（核心应用）
-- **v1.0.0** - Phase 6 完成（生产就绪）
+- **v0.3.0-alpha** - Phase 1 完成(核心知识库)
+- **v0.5.0-beta** - Phase 3 完成(自我演化)
+- **v1.0.0** - 生产就绪
 
 ---
 
@@ -145,6 +122,6 @@
 
 ---
 
-**最后更新**: 2026-01-16  
+**最后更新**: 2026-01-18  
 **格式**: [Keep a Changelog](https://keepachangelog.com/)  
 **版本**: [Semantic Versioning](https://semver.org/)

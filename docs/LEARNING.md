@@ -1,239 +1,271 @@
-# ⚡ 技术栈快速总结
+# 📚 Mindflow 技术栈学习计划
 
-> 一页纸的技术栈概览，适合快速查询
-
----
-
-## 🎯 技术栈全貌
-
-### 前端层
-| 技术 | 用途 | 学习周期 | 难度 |
-|------|------|---------|------|
-| **Gradio** | Web UI框架 | 3-5天 | ⭐ 简 |
-| HTML/CSS | 界面样式 | 2-3天 | ⭐ 简 |
-
-### 后端层
-| 技术 | 用途 | 学习周期 | 难度 |
-|------|------|---------|------|
-| **Python** | 编程语言 | 1-2周 | ⭐⭐ 中 |
-| **FastAPI/Flask** | Web框架 | 3-5天 | ⭐⭐ 中 |
-| **Pydantic** | 数据验证 | 2-3天 | ⭐ 简 |
-
-### AI/Agent层 ⭐⭐⭐⭐⭐ 最重要
-| 技术 | 用途 | 学习周期 | 难度 |
-|------|------|---------|------|
-| **LangGraph** | Agent工作流 | 1-2周 | ⭐⭐⭐ 难 |
-| **Claude API** | 大语言模型 | 2-3天 | ⭐ 简 |
-| **LangChain** | AI工具库 | 1周 | ⭐⭐ 中 |
-
-### 数据层
-| 技术 | 用途 | 学习周期 | 难度 |
-|------|------|---------|------|
-| **SQLite** | 数据库 (MVP) | 3-5天 | ⭐⭐ 中 |
-| **SQLAlchemy** | ORM框架 | 1周 | ⭐⭐ 中 |
-| **SQL** | 数据库语言 | 3-5天 | ⭐⭐ 中 |
-
-### 任务调度层
-| 技术 | 用途 | 学习周期 | 难度 |
-|------|------|---------|------|
-| **APScheduler** | 定时任务 | 2-3天 | ⭐ 简 |
-
-### 部署层
-| 技术 | 用途 | 学习周期 | 难度 |
-|------|------|---------|------|
-| **Docker** | 容器化 | 1周 | ⭐⭐ 中 |
-| **Linux** | 服务器 | 持续学习 | ⭐⭐⭐ 难 |
+> **更新日期**: 2026-01-18  
+> **当前阶段**: Phase 1 准备
 
 ---
 
-## 📊 学习优先级矩阵
+## 🎯 学习目标
 
-```
-高优先级 + 高难度         高优先级 + 简单
-├─ LangGraph             ├─ Gradio
-├─ SQLAlchemy ORM        ├─ Claude API
-└─ Python/SQL            └─ Pydantic
-
-低优先级 + 难度           低优先级 + 简单
-├─ PostgreSQL升级         ├─ APScheduler
-├─ Linux深入学习          └─ HTML/CSS
-└─ 性能优化
-```
+掌握 Mindflow 开发所需的核心技术,按 Phase 分阶段学习。
 
 ---
 
-## 🚀 按开发阶段需求
+## 📋 Phase 1: 核心知识库 (Week 1-6)
 
-### Phase 1 - 基础框架（必学）
-```
-✅ Python基础
-✅ Gradio (UI)
-✅ SQLite + SQL
-✅ SQLAlchemy (ORM)
-✅ Claude API
-✅ LangGraph基础 (1个简单Agent)
-```
-**预计学习时间：3-4周**
+### 必学技术
 
-### Phase 2-3 - 功能完善（新增）
-```
-+ 向量数据库 (Chroma/Weaviate)
-+ 向量嵌入模型 (Embeddings)
-+ LangGraph进阶 (多Agent协作)
-+ APScheduler (定时任务)
-```
-**预计学习时间：2-3周**
+#### 1. 图数据库
 
-### Phase 4-5 - 性能优化（新增）
-```
-+ 数据库索引优化
-+ 缓存策略
-+ 异步处理
-+ 监控和日志
-```
-**预计学习时间：1-2周**
+**NetworkX** (开发环境)
+- 基础概念: 节点、边、属性
+- 图的创建和操作
+- 图遍历算法
+- 图的序列化和持久化
 
-### Phase 6 - 部署上线（新增）
-```
-+ Docker
-+ Nginx配置
-+ 系统监控
-+ 备份和恢复
-```
-**预计学习时间：1-2周**
+**学习资源**:
+- 官方文档: https://networkx.org/documentation/stable/
+- 教程: NetworkX Tutorial (1-2天)
+
+**Neo4j** (生产环境,可选)
+- Cypher 查询语言
+- 图模式设计
+- 索引和性能优化
+
+**学习资源**:
+- 官方文档: https://neo4j.com/docs/
+- 在线课程: Neo4j Graph Academy (3-5天)
 
 ---
 
-## 💻 最小可用集合 (MVP学习)
+#### 2. 向量搜索
 
-```
-必需 (2-3周)：
-├─ Python基础      (基础语言)
-├─ Gradio          (Web UI)
-├─ SQLite + SQL    (数据存储)
-├─ SQLAlchemy      (数据操作)
-└─ Claude API      (AI功能)
+**Chroma**
+- 向量数据库基础
+- Embedding 和索引
+- 相似度搜索
+- 元数据过滤
 
-强烈推荐 (1-2周)：
-└─ LangGraph       (Agent工作流)
+**学习资源**:
+- 官方文档: https://docs.trychroma.com/
+- 快速开始: Chroma Quickstart (1天)
 
-可选/延后：
-├─ 向量数据库
-├─ 高级优化
-└─ DevOps工具
-```
+**sentence-transformers**
+- 文本向量化
+- 预训练模型选择
+- 相似度计算
 
----
-
-## 📚 核心资源汇总
-
-### 官方文档（最可靠）
-| 技术 | 文档链接 |
-|------|---------|
-| Python | https://docs.python.org/3/ |
-| Gradio | https://gradio.app/docs |
-| SQLAlchemy | https://docs.sqlalchemy.org/ |
-| LangGraph | https://langchain-ai.github.io/langgraph/ |
-| Claude API | https://docs.anthropic.com/ |
-
-### 中文资源
-| 资源 | 链接 |
-|------|------|
-| Python教程 | https://www.liaoxuefeng.com/wiki/1016959663602400 |
-| SQL教程 | https://www.w3schools.com/sql/ |
-| 阮一峰SQL | https://www.ruanyifeng.com/blog/2019/04/sql-tutorial.html |
+**学习资源**:
+- 官方文档: https://www.sbert.net/
+- 教程: Sentence Transformers Tutorial (1-2天)
 
 ---
 
-## ⏱️ 时间规划表
+#### 3. LLM 集成
 
-```
-Week 1：
-  Day 1-2: Python基础回顾
-  Day 3-4: Gradio + SQL
-  Day 5-6: SQLAlchemy
-  Day 7: Claude API
+**Anthropic Claude API**
+- API 基础使用
+- Prompt 工程
+- Tool Calling
+- 错误处理
 
-Week 2-3：
-  Day 8-14: LangGraph深化
-  Day 14-21: 实现第一个Agent
+**学习资源**:
+- 官方文档: https://docs.anthropic.com/
+- API 参考: Claude API Reference (2-3天)
 
-Week 4：
-  第一周成果：Phase 1框架完成
-```
-
----
-
-## 🎓 学习检验清单
-
-### Python基础 ✅
-- [ ] 能写简单脚本
-- [ ] 理解类和装饰器
-- [ ] 能管理虚拟环境
-
-### Gradio ✅
-- [ ] 能创建基础UI
-- [ ] 理解组件和事件
-- [ ] 能创建多页应用
-
-### 数据库 ✅
-- [ ] 会写基础SQL
-- [ ] 理解表关系
-- [ ] 能用SQLAlchemy CRUD
-
-### LangGraph ✅
-- [ ] 理解State和Node
-- [ ] 能创建简单工作流
-- [ ] 理解Agent模式
-
-### Claude API ✅
-- [ ] 能调用API
-- [ ] 理解消息格式
-- [ ] 能处理响应
+**OpenAI API** (备选)
+- GPT-4 API 使用
+- Function Calling
+- 流式响应
 
 ---
 
-## 🔧 依赖包速查
+#### 4. Python 核心库
 
-### Phase 1必需
-```bash
-gradio==4.42.0
-sqlalchemy==2.0.31
-anthropic==0.28.0
-langgraph==0.1.0
-langchain==0.1.0
-pydantic==2.5.0
-python-dotenv==1.0.0
-```
+**Pydantic**
+- 数据验证
+- 模型定义
+- 序列化/反序列化
 
-### 完整参考
-见：`TECH_STACK_LEARNING.md` 的依赖包列表部分
+**学习资源**:
+- 官方文档: https://docs.pydantic.dev/
+- 教程: Pydantic Tutorial (1天)
 
 ---
 
-## 🆘 快速问题解答
+### 学习计划 (Week 1-2)
 
-| 问题 | 答案 |
-|------|------|
-| Python要掌握到什么程度？ | 基础语法+类+异常处理足够 |
-| LangGraph很难吗？ | 概念多但逻辑清晰，需时间理解 |
-| 学习期间能编码吗？ | 完全可以！边学边练最有效 |
-| Claude API会很贵吗？ | 不会，Haiku 4.5很便宜 |
-| 需要学PostgreSQL吗？ | Phase 5才需要，不着急 |
-| 学习顺序重要吗？ | 很重要，按优先级学 |
+**Week 1**:
+- Day 1-2: NetworkX 基础
+- Day 3-4: Chroma + sentence-transformers
+- Day 5: Pydantic
 
----
-
-## 📍 下一步
-
-1. **今天**: 检查Python基础（0-2周需要）
-2. **本周**: Gradio实践（创建第一个UI）
-3. **下周**: SQL + SQLAlchemy（数据层）
-4. **第三周**: LangGraph深化（核心技术）
-5. **第四周**: Phase 1实现（整合所有技术）
+**Week 2**:
+- Day 1-3: Claude API
+- Day 4-5: 综合练习 (小型 demo)
 
 ---
 
-**详细内容**: 见 `TECH_STACK_LEARNING.md`
+## 📋 Phase 2: 输入输出层 (Week 7-12)
 
-更新时间：2024-12-03
+### 必学技术
+
+#### 1. LLM 应用开发
+
+**LangChain** (可选)
+- Agent 框架
+- Memory 管理
+- Chain 组合
+
+**学习资源**:
+- 官方文档: https://python.langchain.com/
+- 教程: LangChain Tutorials (3-5天)
+
+---
+
+#### 2. 异步编程
+
+**asyncio**
+- 异步基础
+- 并发执行
+- 错误处理
+
+**学习资源**:
+- Python 官方文档: asyncio
+- 教程: Async Python (2-3天)
+
+---
+
+### 学习计划 (Week 7-8)
+
+**Week 7**:
+- Day 1-3: LangChain 基础
+- Day 4-5: asyncio
+
+**Week 8**:
+- Day 1-5: 综合练习
+
+---
+
+## 📋 Phase 3: 自我演化 (Week 13-18)
+
+### 必学技术
+
+#### 1. 代码分析
+
+**AST (Abstract Syntax Tree)**
+- Python AST 模块
+- 代码解析
+- 模式识别
+
+**学习资源**:
+- Python 官方文档: ast module
+- 教程: Python AST Tutorial (2-3天)
+
+---
+
+#### 2. 机器学习基础 (可选)
+
+**模式识别**
+- 聚类算法
+- 相似度计算
+- 特征提取
+
+**学习资源**:
+- scikit-learn 文档
+- 教程: ML Basics (3-5天)
+
+---
+
+## 📋 Phase 4-5: UI 和生产 (Week 19-24)
+
+### 必学技术
+
+#### 1. 前端框架
+
+**Gradio**
+- 快速 UI 构建
+- 组件使用
+- 事件处理
+
+**学习资源**:
+- 官方文档: https://www.gradio.app/docs/
+- 教程: Gradio Quickstart (1-2天)
+
+**Tauri** (可选,桌面应用)
+- Rust + Web 技术
+- 跨平台打包
+
+---
+
+#### 2. 测试和部署
+
+**pytest**
+- 单元测试
+- 集成测试
+- Mock 和 Fixture
+
+**学习资源**:
+- 官方文档: https://docs.pytest.org/
+- 教程: pytest Tutorial (2-3天)
+
+**Docker** (可选)
+- 容器化
+- 部署
+
+---
+
+## 🎓 推荐学习顺序
+
+### 立即开始 (Phase 1 准备)
+1. NetworkX (2天)
+2. Chroma + sentence-transformers (2天)
+3. Claude API (3天)
+4. Pydantic (1天)
+
+### 按需学习
+- Neo4j: 当 NetworkX 性能不足时
+- LangChain: 当需要更复杂的 Agent 逻辑时
+- AST: Phase 3 开始前学习
+
+---
+
+## 📚 额外资源
+
+### 书籍
+- 《Designing Data-Intensive Applications》- 数据系统设计
+- 《Building LLM Apps》- LLM 应用开发
+
+### 课程
+- DeepLearning.AI: LangChain for LLM Application Development
+- Fast.ai: Practical Deep Learning
+
+### 社区
+- LangChain Discord
+- Chroma Discord
+- r/LocalLLaMA
+
+---
+
+## ✅ 学习检查清单
+
+### Phase 1 必备技能
+- [ ] 能用 NetworkX 创建和查询图
+- [ ] 能用 Chroma 进行向量搜索
+- [ ] 能调用 Claude API 并处理响应
+- [ ] 能用 Pydantic 定义数据模型
+
+### Phase 2 必备技能
+- [ ] 能实现基础的 LLM Agent
+- [ ] 能处理异步任务
+- [ ] 能实现 Tool Calling
+
+### Phase 3 必备技能
+- [ ] 能解析 Python 代码
+- [ ] 能识别代码模式
+- [ ] 能实现自动化工作流
+
+---
+
+**最后更新**: 2026-01-18  
+**维护者**: [@damiangao](https://github.com/damiangao)
