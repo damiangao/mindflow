@@ -242,6 +242,94 @@ methodology_change 0.9       local: ×1, global: ×1.5
 
 ---
 
+## 🛡️ 错误处理和容错机制
+
+### 分层错误处理
+
+```
+L1: LLM 调用层
+  ├─ 网络错误 → 重试(3次,指数退避)
+  ├─ API 限流 → 等待 + 降级
+  ├─ 响应超时 → 重试 + 缩短 prompt
+  └─ 解析错误 → 记录 + 默认值
+
+L2: Skills 执行层
+  ├─ Skill 不存在 → 推荐相似 Skills
+  ├─ 前置条件不满足 → 自动满足 or 提示
+  ├─ 执行失败 → 记录 + 降低 success_rate
+  └─ 部分成功 → 返回已完成部分
+
+L3: 知识库层
+  ├─ 图查询失败 → 降级到向量搜索
+  ├─ 向量搜索失败 → 返回默认 Skills
+  ├─ 数据不一致 → 自动修复 or 标记
+  └─ 索引损坏 → 重建索引
+```
+
+### 核心策略
+
+**1. LLM 调用重试**
+```python
+def call_llm_with_retry(prompt, max_retries=3):
+    for i in range(max_retries):
+        try:
+            return llm.call(prompt)
+        except NetworkError:
+            time.sleep(2 ** i)  # 指数退避
+        except RateLimitError:
+            time.sleep(60)
+        except TimeoutError:
+            prompt = shorten_prompt(prompt)
+    return fallback_response()
+```
+
+**2. 优雅降级**
+```
+完整功能 → 降级功能 → 最小功能
+
+示例:
+- 完整: LLM 理解 + Skills 组合 + 执行
+- 降级: 规则匹配 + 单个 Skill + 执行
+- 最小: 用户手动选择 Skill
+```
+
+**3. 错误隔离**
+```
+单个 Skill 失败 ≠ 整个任务失败
+
+策略:
+- 跳过失败的 Skill
+- 继续执行其他 Skills
+- 最后汇总结果
+```
+
+### 用户提示原则
+
+```
+1. 清晰: 说明发生了什么
+2. 可操作: 告诉用户可以做什么
+3. 友好: 不要技术术语
+
+示例:
+❌ "VectorSearchError: Index not found"
+✅ "抱歉,搜索功能暂时不可用。我会用其他方式帮你查找。"
+```
+
+### 实现优先级
+
+**Phase 1 必须**:
+- LLM 调用重试机制
+- Skills 执行错误处理
+- 基础错误日志
+
+**Phase 2 可选**:
+- 状态恢复机制
+- 完整监控指标
+- 自动数据修复
+
+---
+
+
 ## 🔍 关联机制技术实现
 
 ### 向量搜索
