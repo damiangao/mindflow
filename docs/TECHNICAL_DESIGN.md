@@ -1,4 +1,4 @@
-# Mindflow 技术设计文档 (精简版)
+﻿# Mindflow 技术设计文档 (精简版)
 
 > **基于**: ARCHITECTURE.md v1.0  
 > **版本**: v1.1  
