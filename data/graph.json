@@ -1,0 +1,99 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "name": "Simplicity First",
+      "description": "Prefer simple solutions",
+      "principles": [
+        "Keep it simple"
+      ],
+      "evaluation_rule": "Check simplicity",
+      "weight": 0.9,
+      "status": "active",
+      "guided_skills": [],
+      "created_at": "2026-01-22 09:20:31.870137",
+      "updated_at": "2026-01-22 09:20:31.870137",
+      "confidence": 1.0,
+      "id": "meth_simple"
+    },
+    {
+      "name": "CSV Processing",
+      "description": "Process CSV files efficiently",
+      "instructions": "1. Read CSV\n2. Process data\n3. Return result",
+      "preconditions": [
+        "has_csv_file"
+      ],
+      "effects": [
+        "has_dataframe"
+      ],
+      "methodology_scores": {
+        "meth_simple": 0.8
+      },
+      "parent_methodologies": [
+        "meth_simple"
+      ],
+      "called_skills": [],
+      "artifacts": [],
+      "success_rate": 0.0,
+      "usage_count": 0,
+      "created_at": "2026-01-22 09:20:31.871011",
+      "updated_at": "2026-01-22 09:20:31.871011",
+      "id": "skill_csv"
+    },
+    {
+      "name": "CSV Reader",
+      "type": "function",
+      "content": "def read_csv(path): return pd.read_csv(path)",
+      "filepath": "artifacts/artifact_csv_func.py",
+      "parent_skills": [
+        "skill_csv"
+      ],
+      "usage_count": 0,
+      "tags": [
+        "csv"
+      ],
+      "created_at": "2026-01-22 09:20:31.973016",
+      "id": "artifact_csv_func"
+    },
+    {
+      "name": "Test Function",
+      "type": "function",
+      "content": "def hello():\n    return 'Hello World'",
+      "filepath": "artifacts\\test_func.py",
+      "parent_skills": [],
+      "usage_count": 0,
+      "tags": [],
+      "created_at": "2026-01-22 09:20:50.156769",
+      "id": "test_func"
+    },
+    {
+      "id": "csv_reader",
+      "name": "CSV Reader Function",
+      "type": "function",
+      "summary": "Safe CSV file reader using pandas",
+      "filepath": "artifacts\\csv_reader.py",
+      "parent_skills": [],
+      "usage_count": 0,
+      "tags": [
+        "csv",
+        "pandas",
+        "io"
+      ],
+      "created_at": "2026-01-22 09:23:51.810874"
+    }
+  ],
+  "edges": [
+    {
+      "relation": "guides",
+      "source": "meth_simple",
+      "target": "skill_csv"
+    },
+    {
+      "relation": "produces",
+      "source": "skill_csv",
+      "target": "artifact_csv_func"
+    }
+  ]
+}

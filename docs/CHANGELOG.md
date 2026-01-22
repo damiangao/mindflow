@@ -4,6 +4,37 @@
 
 ---
 
+## [0.3.0-alpha] - 2026-01-22
+
+### 🎉 Week 1 完成 - 核心知识库实现
+
+#### 核心功能
+- ✅ **三层数据模型**: Methodology / Skill / Artifact (Pydantic)
+- ✅ **图数据库**: NetworkX 实现，JSON 持久化
+- ✅ **向量索引**: Chroma + sentence-transformers
+- ✅ **统一接口**: KnowledgeBase 封装所有操作
+
+#### Artifact 优化 (重要改进)
+- ✅ **轻量化设计**: `summary` (语义索引) + `filepath` (文件路径)
+- ✅ **文件持久化**: artifacts/ 目录存储实际代码
+- ✅ **可复用性**: 代码文件可直接导入执行
+- ✅ **向量搜索**: Artifact 独立索引，支持语义检索
+
+#### 测试验证
+- ✅ 功能测试通过 (test_kb_en.py)
+- ✅ 端到端测试通过 (test_e2e.py)
+- ✅ Artifact 持久化测试通过 (test_artifact.py)
+
+#### 技术细节
+```python
+# Artifact 最终设计
+class Artifact:
+    summary: str    # 文档总结（用于向量索引）
+    filepath: str   # 文件路径（指向实际文件）
+```
+
+---
+
 ## [Unreleased] - 2026-01-18
 
 ### 🎉 架构设计完成

@@ -1,0 +1,11 @@
+id: meth_consistency
+name: 保持一致性
+description: 在代码风格、命名、结构上保持一致
+principles:
+  - 统一的命名规范
+  - 一致的代码风格
+  - 相似问题用相似方法
+  - 遵循项目约定
+evaluation_rule: 检查代码风格和命名的一致性
+weight: 0.7
+status: active

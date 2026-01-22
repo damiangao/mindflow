@@ -1,0 +1,20 @@
+id: skill_file_io
+name: 文件读写
+description: 安全地读取和写入文件
+instructions: |
+  1. 检查文件路径是否存在
+  2. 使用合适的编码打开文件
+  3. 处理文件读写操作
+  4. 确保文件正确关闭
+  5. 处理可能的异常
+preconditions:
+  - has_file_path
+effects:
+  - has_file_content
+methodology_scores:
+  meth_simple: 0.8
+  meth_stdlib: 0.9
+parent_methodologies:
+  - meth_simple
+  - meth_stdlib
+called_skills: []

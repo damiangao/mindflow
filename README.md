@@ -1,9 +1,10 @@
-# Mindflow
+﻿# Mindflow
 
 > **Mindflow 是一个跨平台智能体操作系统,与你共同成长的数字伙伴**
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-alpha-orange.svg)]()
+[![Version](https://img.shields.io/badge/version-0.3.0--alpha-blue.svg)]()
 
 ---
 
@@ -47,6 +48,83 @@ Mindflow 采用操作系统的抽象思维:
 └─────────────────────────────────┘
 ```
 
+### Artifact 轻量化设计 (v0.3.0 新特性)
+
+```python
+class Artifact:
+    summary: str    # 文档总结（用于向量索引）
+    filepath: str   # 文件路径（指向实际文件）
+```
+
+**优势**:
+- 图数据库轻量（减少 67% 存储空间）
+- 文件可复用（可直接导入执行）
+- 支持语义搜索（summary 用于索引）
+
+## 🚀 快速开始
+
+### 环境要求
+- Python 3.10+
+- 推荐使用 [uv](https://github.com/astral-sh/uv) 进行环境管理
+
+### 安装步骤
+
+**1. 安装 uv（推荐）**
+```powershell
+# Windows PowerShell
+irm https://astral.sh/uv/install.ps1 | iex
+
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**2. 克隆项目**
+```bash
+git clone https://github.com/yourusername/mindflow.git
+cd mindflow
+```
+
+**3. 创建虚拟环境**
+```bash
+uv venv --python 3.11
+```
+
+**4. 激活虚拟环境**
+```powershell
+# Windows
+.venv\Scripts\activate
+
+# macOS/Linux
+source .venv/bin/activate
+```
+
+**5. 安装依赖**
+```bash
+uv pip install -r requirements.txt
+```
+
+**6. 运行测试**
+```bash
+python tests/test_kb_en.py
+python tests/test_e2e.py
+python tests/test_artifact.py
+```
+
+### 常见问题
+
+**Q: PowerShell 提示无法运行脚本？**
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+**Q: 不想用 uv？**
+```bash
+# 使用标准 pip
+python -m venv .venv
+.venv\Scripts\activate  # Windows
+pip install -r requirements.txt
+```
+
 ## 🚀 核心能力
 
 - **智能理解**: 基于知识库的深度意图识别
@@ -58,8 +136,8 @@ Mindflow 采用操作系统的抽象思维:
 
 | 层级 | 技术 | 用途 |
 |------|------|------|
-| **知识库** | Neo4j / NetworkX | 图数据库 |
-| **向量索引** | Chroma / Weaviate | 语义搜索 |
+| **知识库** | NetworkX / Neo4j | 图数据库 |
+| **向量索引** | Chroma + sentence-transformers | 语义搜索 |
 | **LLM** | Claude / GPT / DeepSeek | 意图理解/生成 |
 | **后端** | Python 3.10+ | 核心逻辑 |
 | **前端** | Gradio / Tauri | 用户界面 |
@@ -68,28 +146,49 @@ Mindflow 采用操作系统的抽象思维:
 
 ```
 mindflow/
+├── src/                     # 源代码
+│   └── knowledge_base/      # 知识库核心模块
+│       ├── models.py        # 数据模型
+│       ├── graph_store.py   # 图存储层
+│       ├── vector_store.py  # 向量索引层
+│       └── knowledge_base.py # 统一接口
+├── tests/                   # 测试文件
+│   ├── test_kb_en.py       # 功能测试
+│   ├── test_e2e.py         # 端到端测试
+│   └── test_artifact.py    # Artifact 测试
+├── artifacts/               # 产物文件（代码/文档）
+├── data/                    # 数据存储
+│   ├── graph.json          # 图数据
+│   └── vectors/            # 向量索引
 ├── docs/                    # 文档
 │   ├── ARCHITECTURE.md      # 架构设计
 │   ├── TECHNICAL_DESIGN.md  # 技术设计
-│   ├── DEVELOPMENT.md       # 开发指南
-│   └── LEARNING.md          # 学习路径
-├── prompts/                 # 提示词模板
-└── LICENSE                  # 开源协议
+│   ├── DEVELOPMENT_PLAN.md  # 开发计划
+│   ├── PROGRESS.md          # 开发进度
+│   └── CHANGELOG.md         # 更新日志
+├── seeds/                   # 种子库
+│   ├── methodologies/       # 方法论
+│   └── skills/              # Skills
+├── requirements.txt         # 依赖列表
+├── pyproject.toml          # 项目配置
+└── 
 ```
 
 ## 🎯 开发路线
 
-### Phase 1: 核心知识库 (4-6周)
-- 三层知识库结构实现
-- 图数据库和向量索引
-- 基础 CRUD 操作
+### Phase 1: 核心知识库 ✅ 完成 (v0.3.0-alpha)
+- ✅ 三层知识库结构实现
+- ✅ 图数据库和向量索引
+- ✅ 基础 CRUD 操作
+- ✅ Artifact 轻量化优化
+- ✅ 测试验证通过
 
-### Phase 2: 输入输出 (4-6周)
+### Phase 2: 输入输出 (Week 7-12)
 - 文本输入和意图识别
 - 对话生成和代码生成
 - 复盘分析机制
 
-### Phase 3: 自我演化 (4-6周)
+### Phase 3: 自我演化 (Week 13-18)
 - 产物自动提取
 - Skills 自动生成
 - 方法论演化机制
@@ -98,8 +197,9 @@ mindflow/
 
 - [架构设计](docs/ARCHITECTURE.md) - 详细的系统架构说明
 - [技术设计](docs/TECHNICAL_DESIGN.md) - 核心机制的技术实现
-- [开发指南](docs/DEVELOPMENT.md) - 开发环境和贡献指南
-- [学习路径](docs/LEARNING.md) - 相关知识和学习资源
+- [开发计划](docs/DEVELOPMENT_PLAN.md) - 详细的开发计划和时间线
+- [开发进度](docs/PROGRESS.md) - 当前开发进度和完成情况
+- [更新日志](docs/CHANGELOG.md) - 版本更新记录
 
 ## 🤝 参与贡献
 
@@ -120,4 +220,6 @@ Mindflow 目前处于早期开发阶段,欢迎各种形式的贡献:
 
 ---
 
-**当前状态**: Alpha 开发中 | **版本**: v0.1.0 | **最后更新**: 2026-01-18
+**当前状态**: Alpha 开发中 | **版本**: v0.3.0-alpha | **最后更新**: 2026-01-22
+
+

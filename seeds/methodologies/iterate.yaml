@@ -1,0 +1,11 @@
+id: meth_iterate
+name: 迭代优化
+description: 从小开始，逐步迭代改进
+principles:
+  - 先实现最小可用版本
+  - 快速验证核心假设
+  - 根据反馈持续改进
+  - 避免一次性完美主义
+evaluation_rule: 检查是否采用渐进式开发
+weight: 0.8
+status: active

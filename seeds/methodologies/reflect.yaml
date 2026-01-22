@@ -1,0 +1,11 @@
+id: meth_reflect
+name: 记录和复盘
+description: 记录过程，定期复盘总结经验
+principles:
+  - 记录关键决策和原因
+  - 定期回顾和总结
+  - 从失败中学习
+  - 沉淀可复用经验
+evaluation_rule: 检查是否有记录和复盘机制
+weight: 0.7
+status: active

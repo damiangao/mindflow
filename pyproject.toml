@@ -1,0 +1,16 @@
+[project]
+name = "mindflow"
+version = "0.1.0"
+description = "智能体操作系统 - 与你共同成长的数字伙伴"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0.0",
+    "networkx>=3.0",
+    "chromadb>=0.4.0",
+    "sentence-transformers>=2.2.0",
+    "pyyaml>=6.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_backend"
