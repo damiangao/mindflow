@@ -1,6 +1,7 @@
 # Mindflow 详细开发计划
 
 > **创建日期**: 2026-01-20  
+> **更新日期**: 2026-01-27  
 > **总周期**: 24周 (约6个月)  
 > **开始日期**: 2026-01-20
 
@@ -20,232 +21,209 @@
 
 ## 🚀 Phase 1: 核心知识库 (Week 1-6)
 
-### Week 1 (1/20 - 1/26): 环境搭建 + 技术学习
+### Week 1 (1/20 - 1/26): 环境搭建 + 基础实现 ✅
 
-**学习任务**:
+**已完成**:
+- ✅ 三层数据模型 (Pydantic): Methodology, Skill, Artifact
+- ✅ 图存储层 (NetworkX + JSON 持久化)
+- ✅ 向量索引层 (Chroma + sentence-transformers)
+- ✅ 统一接口 (KnowledgeBase)
+- ✅ Artifact 轻量化优化 (summary + filepath)
 
-| 天数 | 内容 | 产出 |
-|------|------|------|
-| Day 1-2 | NetworkX 基础 | 能创建/查询图结构 |
-| Day 3-4 | Chroma + sentence-transformers | 能进行向量搜索 |
-| Day 5 | Pydantic 数据模型 | 能定义验证模型 |
-
-**开发任务**:
-- 创建项目基础结构
-- 初始化 requirements.txt
-- 配置开发环境
-
-**产出目录结构**:
-```
-mindflow/
-├── src/
-│   └── __init__.py
-├── requirements.txt
-├── .env.example
-└── pyproject.toml
-```
-
-**✅ Milestone 1.1**: 开发环境就绪，能运行图+向量 demo
+**✅ Milestone 1.1**: 核心知识库架构完成
 
 ---
 
-### Week 2 (1/27 - 2/2): 数据模型设计
+### Week 2 (1/27 - 2/2): Agent Skills 规范 + 种子库扩展
 
-**学习任务**:
-- Claude API 基础调用 (3天)
-- Tool Calling 机制
+> **更新日期**: 2026-01-27  
+> **调整原因**: 基于 Obsidian Skills 调研，优先实现业界标准兼容
 
-**开发任务**: `src/knowledge_base/models.py`
+#### ✅ 已完成 (1/27)
+
+**Agent Skills 规范迁移**:
+- ✅ Skill 格式从 YAML 迁移到 Markdown (SKILL.md)
+- ✅ 遵循 [Agent Skills Specification](https://agentskills.io/specification)
+- ✅ 数据模型增加 `to_markdown()` / `from_markdown()` 方法
+- ✅ 种子库加载器支持新格式 + 向后兼容
+- ✅ 创建格式规范文档 `docs/SKILL_FORMAT.md`
+- ✅ Obsidian Skills 调研报告 `docs/research/obsidian_skills_analysis.md`
+
+**新目录结构**:
+```
+seeds/skills/
+├── csv-processing/
+│   └── SKILL.md          # Agent Skills 规范格式
+├── daily-review/
+│   └── SKILL.md
+├── file-io/
+│   └── SKILL.md
+├── python-script/
+│   └── SKILL.md
+└── task-decompose/
+    └── SKILL.md
+```
+
+#### 📋 本周剩余任务 (1/28 - 2/2)
+
+**1. 种子库扩展** (2天)
+- [ ] 扩展到 15-20 个 Skills (SKILL.md 格式)
+- [ ] 补充 Methodology 关联关系
+- [ ] 每个 Skill 包含完整文档（示例、常见问题）
+
+**新增 Skills 计划**:
+
+| 类别 | Skills |
+|------|--------|
+| 数据处理 | json-processing, data-validation, data-transform |
+| 生活管理 | weekly-review, task-tracking, note-organize |
+| 代码辅助 | code-refactor, error-handling |
+| 通用工具 | command-line, api-request |
+
+**2. 方法论评分机制** (2天)
+- [ ] 实现加权归一化算法
+- [ ] Skill 查询时自动评分排序
+- [ ] 测试评分准确性
 
 ```python
-# 1. 方法论节点
-class Methodology:
-    id: str
-    name: str
-    description: str
-    principles: List[str]
-    evaluation_rule: str      # 评估规则
-    weight: float             # 全局权重 0-1
-    status: NodeStatus        # active/deprecated/archived/pending
-    guided_skills: List[str]  # 指导的 Skills
-    created_at: datetime
-    updated_at: datetime
-    confidence: float
-
-# 2. Skill 节点
-class Skill:
-    id: str
-    name: str
-    description: str
-    instructions: str         # 执行步骤
-    preconditions: List[str]  # 前置条件
-    effects: List[str]        # 产生效果
-    methodology_scores: Dict[str, float]  # 方法论评分
-    parent_methodologies: List[str]
-    called_skills: List[str]
-    artifacts: List[str]
-    success_rate: float
-    usage_count: int
-    created_at: datetime
-    updated_at: datetime
-
-# 3. 副产品节点
-class Artifact:
-    id: str
-    name: str
-    type: ArtifactType  # Code/Function/Template/Document/Config
-    content: str
-    parent_skills: List[str]
-    usage_count: int
-    tags: List[str]
-    created_at: datetime
+def calculate_skill_score(skill, methodologies):
+    weighted_sum = 0
+    total_weight = 0
+    
+    for meth in methodologies:
+        score = skill.methodology_scores.get(meth.id, 0.5)
+        weighted_sum += meth.weight * score
+        total_weight += meth.weight
+    
+    return weighted_sum / total_weight
 ```
 
-**✅ Milestone 1.2**: 三层数据模型定义完成，通过 Pydantic 验证
+**3. JSON Canvas 导出** (1天，可选)
+- [ ] 实现知识图谱导出为 Obsidian Canvas 格式
+- [ ] 支持在 Obsidian 中可视化
+
+**✅ Milestone 1.2**: 
+- ✅ Agent Skills 规范兼容
+- 15-20 个 Skills 种子库
+- 方法论评分机制可用
 
 ---
 
-### Week 3 (2/3 - 2/9): 图存储层实现
+### Week 3 (2/3 - 2/9): Skills 组合规划器
 
-**开发任务**: `src/knowledge_base/graph_store.py`
+**开发任务**: `src/planner/skill_planner.py`
 
 ```python
-class GraphStore:
-    """图数据库抽象层"""
+class SkillPlanner:
+    """Skills 组合规划器 (简化版 HTN)"""
     
-    # 节点操作
-    def add_node(node) -> str
-    def get_node(node_id: str) -> Optional[Node]
-    def update_node(node_id: str, updates: dict) -> bool
-    def delete_node(node_id: str) -> bool
+    def plan(goal_effects: List[str], current_state: Set[str]) -> List[Skill]:
+        """贪心搜索，返回执行序列"""
+        pass
     
-    # 关系操作
-    def add_edge(source_id, target_id, relation, properties) -> bool
-    def get_edges(node_id, direction) -> List[Edge]
-    def remove_edge(source_id, target_id, relation) -> bool
+    def check_preconditions(skill: Skill, state: Set[str]) -> bool:
+        """检查前置条件是否满足"""
+        pass
     
-    # 查询操作
-    def get_skills_by_methodology(meth_id) -> List[Skill]
-    def get_artifacts_by_skill(skill_id) -> List[Artifact]
-    def get_skill_chain(skill_id, depth) -> List[Skill]
+    def apply_effects(skill: Skill, state: Set[str]) -> Set[str]:
+        """应用 Skill 效果到状态"""
+        pass
 ```
 
-**实现方案**:
-- 开发环境: NetworkX + JSON 持久化
-- 生产环境: Neo4j (后续迁移)
+**规划流程**:
+```
+用户: "处理CSV并生成图表"
+    ↓
+LLM 解析目标 → ["has_dataframe", "has_chart"]
+    ↓
+当前状态: {"has_csv_file"}
+    ↓
+规划器搜索 → [Skill("CSV处理"), Skill("数据可视化")]
+    ↓
+返回执行计划
+```
 
-**✅ Milestone 1.3**: 图存储层 CRUD 完成，能持久化保存
+**✅ Milestone 1.3**: Skills 组合规划可用，能自动规划多步骤任务
 
 ---
 
-### Week 4 (2/10 - 2/16): 向量索引层实现
+### Week 4 (2/10 - 2/16): 可视化 + 导出功能
 
-**开发任务**: `src/knowledge_base/vector_store.py`
+**开发任务**: `src/export/`
+
+```python
+# 1. JSON Canvas 导出 (Obsidian 兼容)
+class CanvasExporter:
+    def export_knowledge_graph(kb: KnowledgeBase) -> dict
+    def export_skill_chain(skill_id: str) -> dict
+
+# 2. Markdown 导出 (Agent Skills 规范)
+class MarkdownExporter:
+    def export_skill(skill: Skill) -> str
+    def export_all_skills(kb: KnowledgeBase, output_dir: Path)
+```
+
+**可视化功能**:
+- [ ] 知识图谱导出为 JSON Canvas
+- [ ] 在 Obsidian 中可视化三层架构
+- [ ] Skill 调用链可视化
+
+**✅ Milestone 1.4**: 知识库可视化，支持 Obsidian 集成
+
+---
+
+### Week 5 (2/17 - 2/23): 向量搜索优化
+
+**开发任务**: `src/knowledge_base/vector_store.py` 优化
+
+- [ ] 上下文加权搜索
+- [ ] 多集合联合查询
+- [ ] 搜索结果缓存
 
 ```python
 class VectorStore:
-    """向量搜索层"""
-    
-    def __init__(self, model_name="all-MiniLM-L6-v2"):
-        self.embedder = SentenceTransformer(model_name)
-        self.collection = chromadb.Collection("skills")
-    
-    # 索引操作
-    def index_skill(skill: Skill) -> None
-    def reindex_all() -> None
-    
-    # 搜索操作
-    def search(query: str, top_k: int = 5) -> List[Tuple[Skill, float]]
-    def search_with_filter(query, filters, top_k) -> List[Tuple[Skill, float]]
+    def search_with_context(query: str, context: Context) -> List[Skill]:
+        """带上下文的语义搜索"""
+        # 1. 基础向量搜索
+        # 2. 上下文加权调整
+        # 3. 方法论评分排序
+        pass
 ```
 
-**✅ Milestone 1.4**: 向量搜索可用，输入文本能返回相关 Skills
+**✅ Milestone 1.5**: 向量搜索优化完成，首次命中率 > 80%
 
 ---
 
-### Week 5 (2/17 - 2/23): 冷启动种子库
+### Week 6 (2/24 - 3/2): 知识库整合 + Phase 1 验收
 
-**种子库内容**:
+**开发任务**: 整合测试 + 文档完善
 
-| 层级 | 数量 | 内容 |
-|------|------|------|
-| 方法论 | 5个 | 简单优先、标准库优先、一致性、迭代、复盘 |
-| Skills | 5个 | CSV处理、任务分解、Python脚本、文件读写、日复盘 |
-| 副产品 | 5个 | 每个 Skill 1个核心代码片段 |
-
-**文件格式示例**:
-
-```yaml
-# seeds/methodologies/simple_first.yaml
-id: meth_simple
-name: 简单优于复杂
-description: 优先选择简单直接的解决方案
-principles:
-  - 能用一行代码解决的不用十行
-  - 避免过度设计
-  - 先让它工作，再优化
-evaluation_rule: 检查代码行数和复杂度
-weight: 0.9
-status: active
-
-# seeds/skills/csv_processing.yaml
-id: skill_csv
-name: CSV 文件处理
-description: 读取、解析、处理 CSV 格式数据
-instructions: |
-  1. 使用 pandas 读取 CSV 文件
-  2. 检查数据完整性
-  3. 处理缺失值
-  4. 返回 DataFrame
-preconditions: ["has_csv_file"]
-effects: ["has_dataframe"]
-methodology_scores:
-  meth_simple: 0.8
-  meth_stdlib: 0.9
-called_skills: ["file_read"]
-```
-
-**✅ Milestone 1.5**: 种子库加载完成，系统有初始知识
-
----
-
-### Week 6 (2/24 - 3/2): 知识库整合 + 验收
-
-**开发任务**: `src/knowledge_base/knowledge_base.py`
-
-```python
-class KnowledgeBase:
-    """知识库统一接口"""
-    
-    def __init__(self):
-        self.graph = GraphStore()
-        self.vector = VectorStore()
-    
-    def query(user_input: str) -> QueryResult:
-        """向量搜索 → 方法论评分 → 返回最佳匹配"""
-    
-    def activate_skill(skill_id: str) -> ActivationResult:
-        """激活 Skill，返回相关方法论、子 Skills、副产品"""
-    
-    def get_stats() -> KBStats
-```
-
-**验收测试**:
 ```python
 def test_end_to_end():
     kb = KnowledgeBase()
     kb.load_seeds("seeds/")
     
+    # 测试1: 语义搜索
     result = kb.query("帮我处理这个CSV文件")
-    assert result.best_skill.name == "CSV 文件处理"
-    assert result.score > 0.7
+    assert result.best_skill.name == "CSV文件处理"
+    
+    # 测试2: Skills 组合
+    plan = kb.plan(["has_chart"], {"has_csv_file"})
+    assert len(plan) >= 2
+    
+    # 测试3: 可视化导出
+    canvas = kb.export_canvas()
+    assert "nodes" in canvas
 ```
 
 **🎯 Phase 1 验收标准**:
 - ✅ 三层知识库结构完整
-- ✅ 能手动添加和查询节点
-- ✅ 向量搜索返回相关 Skills
-- ✅ 端到端: "处理CSV" → 激活 Skill
+- ✅ Agent Skills 规范兼容
+- ✅ 15-20 个 Skills 种子库
+- ✅ 方法论评分机制
+- ✅ Skills 组合规划
+- ✅ Obsidian 可视化导出
+- ✅ 端到端测试通过
 
 ---
 
@@ -289,12 +267,6 @@ class SkillExecutor:
     
     def plan_and_execute(intent: Intent) -> List[ExecutionResult]:
         """规划并执行 Skills 序列"""
-
-class SkillPlanner:
-    """Skills 规划器 (简化版 HTN)"""
-    
-    def plan(goal_effects: List[str], current_state: Set[str]) -> List[Skill]:
-        """贪心搜索，返回执行序列"""
 ```
 
 **✅ Milestone 2.2**: 能执行单个 Skill 并返回结果
@@ -316,19 +288,19 @@ class ConversationManager:
         """生成自然语言回复"""
 ```
 
-**Skills 扩展** (5 → 20):
+**Skills 扩展** (5 → 30):
 
 | 类别 | Skills |
 |------|--------|
 | 生活管理 | 任务分解、任务跟踪、日程规划、笔记整理、日复盘、周复盘 |
 | 数据处理 | CSV处理、JSON处理、数据清洗、数据验证、数据转换、数据可视化 |
-| 代码辅助 | Python脚本、函数重构、错误处理 |
-| 通用工具 | 文件读写、命令行调用 |
+| 代码辅助 | Python脚本、函数重构、错误处理、代码审查 |
+| 通用工具 | 文件读写、命令行调用、API请求、文本处理 |
 
 **🎯 Phase 2 验收标准**:
 - ✅ 用户输入 → Skills 匹配 → 执行 → 返回结果
 - ✅ 首次命中率 > 80%
-- ✅ 20个 Skills 可用
+- ✅ 30个 Skills 可用
 - ✅ 结构化日志记录决策过程
 
 ---
@@ -452,17 +424,13 @@ def create_app(mindflow: Mindflow) -> gr.Blocks:
 
 ---
 
-### Week 21 (6/9 - 6/15): 知识库可视化
+### Week 21 (6/9 - 6/15): 知识库可视化增强
 
 **开发任务**: `src/ui/visualizer.py`
 
-```python
-def visualize_knowledge_graph(kb: KnowledgeBase) -> str:
-    """生成知识图谱可视化"""
-
-def visualize_skill_chain(skill_id: str) -> str:
-    """可视化 Skill 调用链"""
-```
+- [ ] 交互式知识图谱
+- [ ] Skill 调用链可视化
+- [ ] 实时更新
 
 **🎯 Phase 4 验收标准**:
 - ✅ Gradio 界面完整
@@ -534,348 +502,64 @@ Week 1  ────────────────────────
    ▼                                                               ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │  Phase 1: 核心知识库 (Week 1-6)                                      │
-│  ├─ M1.1 (W1): 环境就绪                                             │
-│  ├─ M1.2 (W2): 数据模型完成                                          │
-│  ├─ M1.3 (W3): 图存储完成                                            │
-│  ├─ M1.4 (W4): 向量搜索完成                                          │
-│  ├─ M1.5 (W5): 种子库完成                                            │
-│  └─ M1.6 (W6): Phase 1 验收 ✓                                       │
-├──────────────────────��──────────────────────────────────────────────┤
+│  ├─ M1.1 (W1): 核心架构完成 ✅                                       │
+│  ├─ M1.2 (W2): Agent Skills 规范 + 种子库 (进行中)                   │
+│  ├─ M1.3 (W3): Skills 组合规划器                                     │
+│  ├─ M1.4 (W4): 可视化导出                                            │
+│  ├─ M1.5 (W5): 向量搜索优化                                          │
+│  └─ M1.6 (W6): Phase 1 验收                                         │
+├─────────────────────────────────────────────────────────────────────┤
 │  Phase 2: 输入输出层 (Week 7-12)                                     │
 │  ├─ M2.1 (W8): 意图识别完成                                          │
 │  ├─ M2.2 (W10): 执行引擎完成                                         │
-│  └─ M2.3 (W12): Phase 2 验收 ✓                                      │
+│  └─ M2.3 (W12): Phase 2 验收                                        │
 ├─────────────────────────────────────────────────────────────────────┤
 │  Phase 3: 自我演化 (Week 13-18)                                      │
 │  ├─ M3.1 (W14): 副产品提取完成                                        │
 │  ├─ M3.2 (W16): Skills 生成完成                                      │
-│  └─ M3.3 (W18): Phase 3 验收 ✓                                      │
+│  └─ M3.3 (W18): Phase 3 验收                                        │
 ├─────────────────────────────────────────────────────────────────────┤
 │  Phase 4: UI 和体验 (Week 19-21)                                     │
-│  └─ M4.1 (W21): UI 完成 ✓                                           │
+│  └─ M4.1 (W21): UI 完成                                             │
 ├─────────────────────────────────────────────────────────────────────┤
 │  Phase 5: 生产就绪 (Week 22-24)                                      │
-│  └─ M5.1 (W24): v1.0.0 发布 ✓                                       │
+│  └─ M5.1 (W24): v1.0.0 发布                                         │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🔍 可复用的开源项目
+## 🔑 关键设计决策
 
-在开始开发前，建议调研以下开源项目：
+### 技术栈
 
-| 组件 | 可能的开源项目 | 复用价值 |
-|------|---------------|---------|
-| 知识图谱 + LLM | Microsoft GraphRAG, LlamaIndex | 高 |
-| Agent 框架 | LangGraph, CrewAI, AutoGPT | 高 |
-| 向量搜索封装 | LangChain VectorStore | 中 |
-| 自我演化 | Voyager Skill Library | 参考 |
-| HTN Planning | PyHOP | 参考 |
+| 组件 | 开发阶段 | 生产阶段 |
+|------|---------|---------|
+| 图数据库 | NetworkX | Neo4j |
+| 向量搜索 | Chroma | Chroma / Pinecone |
+| LLM | Claude API | Claude API |
+| Skill 格式 | Agent Skills (Markdown) | Agent Skills (Markdown) |
+| UI | Gradio | Gradio / Web |
 
----
+### 核心原则
 
-## 💡 Obsidian 启发与设计借鉴
-
-> **调研日期**: 2026-01-26  
-> **参考**: [Obsidian.md](https://obsidian.md/)
-
-### 核心理念对比
-
-| 维度 | Obsidian | MindFlow | 借鉴价值 |
-|------|----------|----------|---------|
-| **数据模型** | 双向链接笔记 | 三层知识图谱 | ⭐⭐⭐⭐⭐ |
-| **可视化** | Graph View | NetworkX 图谱 | ⭐⭐⭐⭐⭐ |
-| **扩展性** | 插件系统 | Python 模块 | ⭐⭐⭐ |
-| **本地优先** | Markdown 文件 | JSON + 文件 | ⭐⭐⭐⭐ |
-| **开源性** | ❌ 闭源 | ✅ 开源 | - |
-
-### 设计借鉴要点
-
-#### 1. **图谱可视化** (Week 2 优先级提升)
-
-**Obsidian Graph View 特性**:
-- 节点：笔记
-- 边：双向链接
-- 交互：点击查看、拖拽布局、筛选
-
-**MindFlow 实现计划**:
-```python
-# src/ui/graph_visualizer.py
-class GraphVisualizer:
-    """知识图谱可视化"""
-    
-    def render_graph(kb: KnowledgeBase, focus_node: Optional[str] = None):
-        """
-        使用 pyvis 或 networkx + matplotlib 渲染图谱
-        - 节点颜色: Methodology(紫色), Skill(蓝色), Artifact(绿色)
-        - 边类型: guides(虚线), produces(实线), depends_on(箭头)
-        - 交互: 点击节点显示详情
-        """
-        pass
-    
-    def export_to_html(kb: KnowledgeBase, output_path: str):
-        """导出为独立 HTML 文件"""
-        pass
-```
-
-**Week 2 新增任务**:
-- [ ] 调研 `pyvis` vs `networkx + matplotlib`
-- [ ] 实现基础图谱渲染
-- [ ] 添加节点筛选功能
+1. **简单优先**: 先让它工作，再优化
+2. **标准兼容**: 遵循 Agent Skills 规范
+3. **渐进演化**: 从使用中学习
+4. **用户控制**: 三级交互策略
 
 ---
 
-#### 2. **双向链接语法** (Artifact 文档增强)
+## 📚 参考文档
 
-**Obsidian 语法**:
-```markdown
-在 [[Meditations on First Philosophy]] 中，
-哲学家 [[René Descartes]] 提出了...
-```
-
-**MindFlow 实现**:
-```python
-# artifacts/csv_processor.py 文档示例
-"""
-CSV 数据处理器
-
-## Dependencies
-- [[Python Basics]]
-- [[File I/O]]
-- [[Pandas Library]]
-
-## Produces
-- [[Clean DataFrame]]
-- [[Data Validation Report]]
-
-## Used By
-- [[Data Analysis Skill]]
-- [[Report Generation Skill]]
-"""
-```
-
-**实现方案**:
-```python
-# src/knowledge_base/link_parser.py
-class LinkParser:
-    """解析 [[链接]] 语法"""
-    
-    def parse_links(content: str) -> List[str]:
-        """提取所有 [[name]] 链接"""
-        return re.findall(r'\[\[([^\]]+)\]\]', content)
-    
-    def resolve_links(links: List[str], kb: KnowledgeBase) -> Dict[str, Node]:
-        """解析链接到实际节点"""
-        pass
-```
-
-**Week 2 新增任务**:
-- [ ] 实现 `[[链接]]` 语法解析
-- [ ] 在 Artifact 中添加反向链接追踪
-- [ ] 更新数据模型支持 `referenced_by` 字段
-
----
-
-#### 3. **Canvas 式规划器** (Phase 4 UI 设计参考)
-
-**Obsidian Canvas 特性**:
-- 无限画布
-- 卡片式内容（笔记、图片、网页）
-- 拖拽式布局
-- 连线表示关系
-
-**MindFlow Skills 规划器设计**:
-```python
-# src/ui/skill_planner.py (Phase 4)
-class SkillPlannerUI:
-    """Canvas 式 Skills 组合规划器"""
-    
-    def render_canvas(intent: Intent, available_skills: List[Skill]):
-        """
-        - 左侧: 可用 Skills 列表
-        - 中间: 拖拽画布
-        - 右侧: 当前规划详情
-        - 连线: 表示 depends_on 关系
-        """
-        pass
-```
-
-**Phase 4 设计草图**:
-```
-┌─────────────────────────────────────────────────────────┐
-│  Skills 规划器                                           │
-├──────────┬──────────────────────────────┬───────────────┤
-│ 可用     │  画布区域                     │  规划详情     │
-│ Skills   │                              │               │
-│          │  ┌──────┐                    │  目标:        │
-│ □ CSV    │  │Skill1│──→ ┌──────┐       │  处理CSV文件  │
-│   处理   │  └──────┘    │Skill2│       │               │
-│          │              └──────┘       │  步骤:        │
-│ □ 数据   │                              │  1. 读取文件  │
-│   清洗   │  ┌──────┐                    │  2. 数据清洗  │
-│          │  │Skill3│                    │  3. 保存结果  │
-└──────────┴──────────────────────────────┴───────────────┘
-```
-
----
-
-#### 4. **导出为 Obsidian 格式** (Week 2 可选任务)
-
-**功能**: 将 MindFlow 知识库导出为 Obsidian Vault
-
-```python
-# src/export/obsidian_exporter.py
-class ObsidianExporter:
-    """导出为 Obsidian 兼容格式"""
-    
-    def export_vault(kb: KnowledgeBase, output_dir: Path):
-        """
-        导出结构:
-        vault/
-        ├── Methodologies/
-        │   ├── Simple First.md
-        │   └── Consistency.md
-        ├── Skills/
-        │   ├── CSV Processing.md
-        │   └── Data Cleaning.md
-        └── Artifacts/
-            └── csv_processor.py
-        """
-        for skill in kb.get_all_skills():
-            content = f"# {skill.name}\n\n"
-            content += f"{skill.description}\n\n"
-            content += f"## Dependencies\n"
-            for dep in skill.dependencies:
-                content += f"- [[{dep}]]\n"
-            
-            (output_dir / "Skills" / f"{skill.name}.md").write_text(content)
-```
-
-**使用场景**:
-- 用户可以在 Obsidian 中浏览 MindFlow 知识库
-- 利用 Obsidian 的 Graph View 可视化
-- 手动编辑后重新导入
-
----
-
-### Week 2 任务优先级调整
-
-**原计划**:
-- 数据模型设计
-- Claude API 学习
-
-**新增高优先级任务**:
-1. **图谱可视化原型** (2天)
-   - 选择可视化库 (pyvis 推荐)
-   - 实现基础渲染
-   - 导出为 HTML
-
-2. **双向链接支持** (1天)
-   - 实现 `[[链接]]` 解析
-   - 更新 Artifact 数据模型
-   - 添加反向链接追踪
-
-3. **Obsidian 导出功能** (1天，可选)
-   - 实现基础导出
-   - 测试与 Obsidian 兼容性
-
-**调整后的 Week 2 时间分配**:
-```
-Day 1-2: 数据模型设计 (原计划)
-Day 3-4: 图谱可视化原型 (新增)
-Day 5:   双向链接支持 (新增)
-Day 6:   Claude API 学习 (原计划)
-Day 7:   Obsidian 导出 (可选)
-```
-
----
-
-## 🔬 开源知识图谱工具调研
-
-> **目标**: 学习开源项目的实现方案，避免重复造轮子
-
-### 调研清单
-
-| 项目 | 语言 | 开源 | 特点 | 调研优先级 |
-|------|------|------|------|-----------|
-| **Logseq** | Clojure | ✅ | 大纲式、图谱、本地优先 | ⭐⭐⭐⭐⭐ |
-| **Foam** | TypeScript | ✅ | VSCode 插件、轻量级 | ⭐⭐⭐⭐ |
-| **Dendron** | TypeScript | ✅ | 层级式笔记、发布系统 | ⭐⭐⭐ |
-| **Athens Research** | Clojure | ✅ | 类 Roam Research | ⭐⭐⭐ |
-| **TiddlyWiki** | JavaScript | ✅ | 单文件 Wiki、插件丰富 | ⭐⭐ |
-
-### 重点调研: Logseq
-
-**GitHub**: https://github.com/logseq/logseq  
-**Stars**: 30k+  
-**技术栈**: Clojure + DataScript (图数据库)
-
-**可借鉴的设计**:
-
-1. **图数据库选型**
-   - Logseq 使用 DataScript (内存图数据库)
-   - MindFlow 可考虑 NetworkX (开发) → Neo4j (生产)
-
-2. **双向链接实现**
-   ```clojure
-   ;; Logseq 的链接解析逻辑
-   (defn parse-page-refs [content]
-     (re-seq #"\[\[([^\]]+)\]\]" content))
-   ```
-
-3. **图谱渲染**
-   - Logseq 使用 D3.js 渲染图谱
-   - MindFlow 可使用 pyvis (Python 生态)
-
-4. **插件系统**
-   - Logseq 支持 JavaScript 插件
-   - MindFlow 可设计 Python 插件接口
-
-**Week 2 调研任务**:
-- [ ] 克隆 Logseq 仓库，阅读核心代码
-- [ ] 分析 DataScript 的图查询 API
-- [ ] 研究 D3.js 图谱渲染实现
-- [ ] 总结可复用的设计模式
-
----
-
-### 调研方法
-
-**时间分配**: Week 2 每天 1 小时
-
-**Day 1-2**: Logseq
-- 阅读 README 和架构文档
-- 运行本地开发环境
-- 分析核心数据结构
-
-**Day 3-4**: Foam
-- 研究 VSCode 插件架构
-- 学习 Markdown 链接解析
-- 参考 Graph View 实现
-
-**Day 5**: Dendron
-- 了解层级式笔记组织
-- 学习发布系统设计
-
-**产出**: `docs/research/knowledge_graph_tools.md`
-
----
-
-
-## 🎯 本周任务 (Week 1)
-
-**立即开始**:
-1. 创建项目基础结构
-2. 初始化 requirements.txt
-3. 学习 NetworkX 基础
-
-**本周目标**:
-- 完成 NetworkX + Chroma 学习
-- 搭建开发环境
-- 运行第一个图+向量 demo
+- [Agent Skills Specification](https://agentskills.io/specification)
+- [Obsidian Skills 调研](docs/research/obsidian_skills_analysis.md)
+- [Skill 格式规范](docs/SKILL_FORMAT.md)
+- [技术设计](docs/TECHNICAL_DESIGN.md)
+- [开发进度](docs/PROGRESS.md)
 
 ---
 
 **创建日期**: 2026-01-20  
+**最后更新**: 2026-01-27  
 **维护者**: [@damiangao](https://github.com/damiangao)

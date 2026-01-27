@@ -39,55 +39,92 @@ class Artifact:
 - 文件可复用（可直接导入执行）
 - 支持语义搜索（summary 用于索引）
 
-### 测试验证
-- ✅ test_kb_en.py - 功能测试
-- ✅ test_e2e.py - 端到端测试
-- ✅ test_artifact.py - Artifact 持久化测试
+---
 
-### 项目结构
+## ✅ Week 2 进行中 (2026-01-27)
+
+### ✅ 已完成 (1/27)
+
+#### Agent Skills 规范迁移
+
+**背景**: 基于 Obsidian Skills 调研，决定优先实现业界标准兼容
+
+**完成内容**:
+- ✅ Skill 格式从 YAML 迁移到 Markdown (SKILL.md)
+- ✅ 遵循 [Agent Skills Specification](https://agentskills.io/specification)
+- ✅ 数据模型增加 `to_markdown()` / `from_markdown()` 方法
+- ✅ 种子库加载器支持新格式 + 向后兼容
+- ✅ 创建格式规范文档 `docs/SKILL_FORMAT.md`
+- ✅ Obsidian Skills 调研报告 `docs/research/obsidian_skills_analysis.md`
+
+**新目录结构**:
 ```
-mindflow/
-├── src/knowledge_base/
-│   ├── models.py          # 数据模型
-│   ├── graph_store.py     # 图存储
-│   ├── vector_store.py    # 向量索引
-│   └── knowledge_base.py  # 统一接口
-├── artifacts/             # 产物文件
-├── data/
-│   ├── graph.json         # 图数据
-│   └── vectors/           # 向量索引
-└── test_*.py              # 测试文件
+seeds/skills/
+├── csv-processing/
+│   └── SKILL.md          # Agent Skills 规范格式
+├── daily-review/
+│   └── SKILL.md
+├── file-io/
+│   └── SKILL.md
+├── python-script/
+│   └── SKILL.md
+└── task-decompose/
+    └── SKILL.md
 ```
 
-## 📊 Week 1 完成度
+**SKILL.md 格式示例**:
+```markdown
+---
+name: csv-processing
+description: 读取、解析、处理CSV格式数据。当用户提到CSV文件时使用。
+metadata:
+  id: skill_csv
+  display_name: CSV文件处理
+  preconditions: [has_csv_file]
+  effects: [has_dataframe]
+  methodology_scores:
+    meth_simple: 0.8
+---
+
+# CSV文件处理
+
+## 执行步骤
+1. 使用 pandas 读取 CSV 文件
+...
+```
+
+### 📋 本周剩余任务 (1/28 - 2/2)
+
+- [ ] 种子库扩展到 15-20 个 Skills
+- [ ] 方法论评分机制实现
+- [ ] JSON Canvas 导出（可选）
+
+---
+
+## 📊 Week 2 完成度
 
 | 任务 | 状态 | 完成度 |
 |------|------|--------|
-| 数据模型 | ✅ | 100% |
-| 图存储层 | ✅ | 100% |
-| 向量索引层 | ✅ | 100% |
-| 统一接口 | ✅ | 100% |
-| Artifact 优化 | ✅ | 100% |
-| 测试验证 | ✅ | 100% |
-| 种子库 | ⏳ | 0% |
+| Agent Skills 规范迁移 | ✅ | 100% |
+| 格式规范文档 | ✅ | 100% |
+| 调研报告 | ✅ | 100% |
+| 种子库扩展 | ⏳ | 25% (5/20) |
+| 方法论评分 | ⏳ | 0% |
+| JSON Canvas 导出 | ⏳ | 0% |
 
-**总体进度**: 100% (Week 1 核心功能)
+**总体进度**: 40% (Week 2)
 
-## 🎯 Week 2 计划
+---
 
-### 1. 种子库扩展
-- [ ] 创建 15-20 个 Skills YAML
-- [ ] 创建 10 个 Methodologies YAML
-- [ ] 实现种子库加载器
+## 🎯 Week 3 计划
 
-### 2. 方法论评分机制
-- [ ] 实现加权归一化算法
-- [ ] Skill 与 Methodology 关联评分
-
-### 3. Skills 组合规划
+### Skills 组合规划器
+- [ ] 实现 SkillPlanner 类
 - [ ] 前置条件检查
 - [ ] 效果链推理
-- [ ] 简单规划器实现
+- [ ] 贪心搜索算法
+
+---
 
 ## 📝 技术架构
 
@@ -97,10 +134,14 @@ KnowledgeBase
 │   ├── Methodologies (L1)
 │   ├── Skills (L2)
 │   └── Artifacts (L3)
-└── VectorStore (Chroma)
-    ├── skills_collection
-    └── artifacts_collection
+├── VectorStore (Chroma)
+│   ├── skills_collection
+│   └── artifacts_collection
+└── SkillLoader (Agent Skills 规范)
+    └── SKILL.md 解析器
 ```
+
+---
 
 ## 🔑 关键设计决策
 
@@ -108,8 +149,18 @@ KnowledgeBase
 2. **双重索引**: 图关系 + 向量语义
 3. **文件持久化**: artifacts/ 目录存储实际代码
 4. **简单优先**: NetworkX 而非 Neo4j（开发阶段）
+5. **标准兼容**: Agent Skills 规范 (Markdown 格式)
 
 ---
 
-**最后更新**: 2026-01-22 09:26  
+## 📚 相关文档
+
+- [开发计划](DEVELOPMENT_PLAN.md)
+- [技术设计](TECHNICAL_DESIGN.md)
+- [Skill 格式规范](SKILL_FORMAT.md)
+- [Obsidian Skills 调研](research/obsidian_skills_analysis.md)
+
+---
+
+**最后更新**: 2026-01-27 09:00  
 **版本**: v0.3.0-alpha
