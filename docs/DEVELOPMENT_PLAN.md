@@ -575,6 +575,294 @@ Week 1  ────────────────────────
 
 ---
 
+## 💡 Obsidian 启发与设计借鉴
+
+> **调研日期**: 2026-01-26  
+> **参考**: [Obsidian.md](https://obsidian.md/)
+
+### 核心理念对比
+
+| 维度 | Obsidian | MindFlow | 借鉴价值 |
+|------|----------|----------|---------|
+| **数据模型** | 双向链接笔记 | 三层知识图谱 | ⭐⭐⭐⭐⭐ |
+| **可视化** | Graph View | NetworkX 图谱 | ⭐⭐⭐⭐⭐ |
+| **扩展性** | 插件系统 | Python 模块 | ⭐⭐⭐ |
+| **本地优先** | Markdown 文件 | JSON + 文件 | ⭐⭐⭐⭐ |
+| **开源性** | ❌ 闭源 | ✅ 开源 | - |
+
+### 设计借鉴要点
+
+#### 1. **图谱可视化** (Week 2 优先级提升)
+
+**Obsidian Graph View 特性**:
+- 节点：笔记
+- 边：双向链接
+- 交互：点击查看、拖拽布局、筛选
+
+**MindFlow 实现计划**:
+```python
+# src/ui/graph_visualizer.py
+class GraphVisualizer:
+    """知识图谱可视化"""
+    
+    def render_graph(kb: KnowledgeBase, focus_node: Optional[str] = None):
+        """
+        使用 pyvis 或 networkx + matplotlib 渲染图谱
+        - 节点颜色: Methodology(紫色), Skill(蓝色), Artifact(绿色)
+        - 边类型: guides(虚线), produces(实线), depends_on(箭头)
+        - 交互: 点击节点显示详情
+        """
+        pass
+    
+    def export_to_html(kb: KnowledgeBase, output_path: str):
+        """导出为独立 HTML 文件"""
+        pass
+```
+
+**Week 2 新增任务**:
+- [ ] 调研 `pyvis` vs `networkx + matplotlib`
+- [ ] 实现基础图谱渲染
+- [ ] 添加节点筛选功能
+
+---
+
+#### 2. **双向链接语法** (Artifact 文档增强)
+
+**Obsidian 语法**:
+```markdown
+在 [[Meditations on First Philosophy]] 中，
+哲学家 [[René Descartes]] 提出了...
+```
+
+**MindFlow 实现**:
+```python
+# artifacts/csv_processor.py 文档示例
+"""
+CSV 数据处理器
+
+## Dependencies
+- [[Python Basics]]
+- [[File I/O]]
+- [[Pandas Library]]
+
+## Produces
+- [[Clean DataFrame]]
+- [[Data Validation Report]]
+
+## Used By
+- [[Data Analysis Skill]]
+- [[Report Generation Skill]]
+"""
+```
+
+**实现方案**:
+```python
+# src/knowledge_base/link_parser.py
+class LinkParser:
+    """解析 [[链接]] 语法"""
+    
+    def parse_links(content: str) -> List[str]:
+        """提取所有 [[name]] 链接"""
+        return re.findall(r'\[\[([^\]]+)\]\]', content)
+    
+    def resolve_links(links: List[str], kb: KnowledgeBase) -> Dict[str, Node]:
+        """解析链接到实际节点"""
+        pass
+```
+
+**Week 2 新增任务**:
+- [ ] 实现 `[[链接]]` 语法解析
+- [ ] 在 Artifact 中添加反向链接追踪
+- [ ] 更新数据模型支持 `referenced_by` 字段
+
+---
+
+#### 3. **Canvas 式规划器** (Phase 4 UI 设计参考)
+
+**Obsidian Canvas 特性**:
+- 无限画布
+- 卡片式内容（笔记、图片、网页）
+- 拖拽式布局
+- 连线表示关系
+
+**MindFlow Skills 规划器设计**:
+```python
+# src/ui/skill_planner.py (Phase 4)
+class SkillPlannerUI:
+    """Canvas 式 Skills 组合规划器"""
+    
+    def render_canvas(intent: Intent, available_skills: List[Skill]):
+        """
+        - 左侧: 可用 Skills 列表
+        - 中间: 拖拽画布
+        - 右侧: 当前规划详情
+        - 连线: 表示 depends_on 关系
+        """
+        pass
+```
+
+**Phase 4 设计草图**:
+```
+┌─────────────────────────────────────────────────────────┐
+│  Skills 规划器                                           │
+├──────────┬──────────────────────────────┬───────────────┤
+│ 可用     │  画布区域                     │  规划详情     │
+│ Skills   │                              │               │
+│          │  ┌──────┐                    │  目标:        │
+│ □ CSV    │  │Skill1│──→ ┌──────┐       │  处理CSV文件  │
+│   处理   │  └──────┘    │Skill2│       │               │
+│          │              └──────┘       │  步骤:        │
+│ □ 数据   │                              │  1. 读取文件  │
+│   清洗   │  ┌──────┐                    │  2. 数据清洗  │
+│          │  │Skill3│                    │  3. 保存结果  │
+└──────────┴──────────────────────────────┴───────────────┘
+```
+
+---
+
+#### 4. **导出为 Obsidian 格式** (Week 2 可选任务)
+
+**功能**: 将 MindFlow 知识库导出为 Obsidian Vault
+
+```python
+# src/export/obsidian_exporter.py
+class ObsidianExporter:
+    """导出为 Obsidian 兼容格式"""
+    
+    def export_vault(kb: KnowledgeBase, output_dir: Path):
+        """
+        导出结构:
+        vault/
+        ├── Methodologies/
+        │   ├── Simple First.md
+        │   └── Consistency.md
+        ├── Skills/
+        │   ├── CSV Processing.md
+        │   └── Data Cleaning.md
+        └── Artifacts/
+            └── csv_processor.py
+        """
+        for skill in kb.get_all_skills():
+            content = f"# {skill.name}\n\n"
+            content += f"{skill.description}\n\n"
+            content += f"## Dependencies\n"
+            for dep in skill.dependencies:
+                content += f"- [[{dep}]]\n"
+            
+            (output_dir / "Skills" / f"{skill.name}.md").write_text(content)
+```
+
+**使用场景**:
+- 用户可以在 Obsidian 中浏览 MindFlow 知识库
+- 利用 Obsidian 的 Graph View 可视化
+- 手动编辑后重新导入
+
+---
+
+### Week 2 任务优先级调整
+
+**原计划**:
+- 数据模型设计
+- Claude API 学习
+
+**新增高优先级任务**:
+1. **图谱可视化原型** (2天)
+   - 选择可视化库 (pyvis 推荐)
+   - 实现基础渲染
+   - 导出为 HTML
+
+2. **双向链接支持** (1天)
+   - 实现 `[[链接]]` 解析
+   - 更新 Artifact 数据模型
+   - 添加反向链接追踪
+
+3. **Obsidian 导出功能** (1天，可选)
+   - 实现基础导出
+   - 测试与 Obsidian 兼容性
+
+**调整后的 Week 2 时间分配**:
+```
+Day 1-2: 数据模型设计 (原计划)
+Day 3-4: 图谱可视化原型 (新增)
+Day 5:   双向链接支持 (新增)
+Day 6:   Claude API 学习 (原计划)
+Day 7:   Obsidian 导出 (可选)
+```
+
+---
+
+## 🔬 开源知识图谱工具调研
+
+> **目标**: 学习开源项目的实现方案，避免重复造轮子
+
+### 调研清单
+
+| 项目 | 语言 | 开源 | 特点 | 调研优先级 |
+|------|------|------|------|-----------|
+| **Logseq** | Clojure | ✅ | 大纲式、图谱、本地优先 | ⭐⭐⭐⭐⭐ |
+| **Foam** | TypeScript | ✅ | VSCode 插件、轻量级 | ⭐⭐⭐⭐ |
+| **Dendron** | TypeScript | ✅ | 层级式笔记、发布系统 | ⭐⭐⭐ |
+| **Athens Research** | Clojure | ✅ | 类 Roam Research | ⭐⭐⭐ |
+| **TiddlyWiki** | JavaScript | ✅ | 单文件 Wiki、插件丰富 | ⭐⭐ |
+
+### 重点调研: Logseq
+
+**GitHub**: https://github.com/logseq/logseq  
+**Stars**: 30k+  
+**技术栈**: Clojure + DataScript (图数据库)
+
+**可借鉴的设计**:
+
+1. **图数据库选型**
+   - Logseq 使用 DataScript (内存图数据库)
+   - MindFlow 可考虑 NetworkX (开发) → Neo4j (生产)
+
+2. **双向链接实现**
+   ```clojure
+   ;; Logseq 的链接解析逻辑
+   (defn parse-page-refs [content]
+     (re-seq #"\[\[([^\]]+)\]\]" content))
+   ```
+
+3. **图谱渲染**
+   - Logseq 使用 D3.js 渲染图谱
+   - MindFlow 可使用 pyvis (Python 生态)
+
+4. **插件系统**
+   - Logseq 支持 JavaScript 插件
+   - MindFlow 可设计 Python 插件接口
+
+**Week 2 调研任务**:
+- [ ] 克隆 Logseq 仓库，阅读核心代码
+- [ ] 分析 DataScript 的图查询 API
+- [ ] 研究 D3.js 图谱渲染实现
+- [ ] 总结可复用的设计模式
+
+---
+
+### 调研方法
+
+**时间分配**: Week 2 每天 1 小时
+
+**Day 1-2**: Logseq
+- 阅读 README 和架构文档
+- 运行本地开发环境
+- 分析核心数据结构
+
+**Day 3-4**: Foam
+- 研究 VSCode 插件架构
+- 学习 Markdown 链接解析
+- 参考 Graph View 实现
+
+**Day 5**: Dendron
+- 了解层级式笔记组织
+- 学习发布系统设计
+
+**产出**: `docs/research/knowledge_graph_tools.md`
+
+---
+
+
 ## 🎯 本周任务 (Week 1)
 
 **立即开始**:

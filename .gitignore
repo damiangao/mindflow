@@ -213,3 +213,7 @@ PLAN.md
 *.sqlite
 backups/
 logs/
+
+# Learning Materials
+# Personal learning notes and exercises
+learning/

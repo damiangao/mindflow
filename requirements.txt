@@ -9,3 +9,4 @@ sentence-transformers>=2.2.0
 
 # 数据处理
 pyyaml>=6.0
+python-frontmatter>=1.0.0  # Agent Skills 规范 Markdown 解析
