@@ -1,6 +1,9 @@
 # Mindflow 开发指南 v3.0
 
-> **架构设计完成**: 智能体操作系统核心架构已确定  
+> **归档说明**: 本文档已归档，部分内容可能过时  
+> **最新文档**: 请参考项目根目录的 README.md 和 docs/ 目录  
+> **技术栈更新**: 2026-01-28 VectorStore 已优化，详见 [VECTOR_STORE_OPTIMIZATION.md](../VECTOR_STORE_OPTIMIZATION.md)
+>
 > **更新日期**: 2026-01-18  
 > **当前版本**: v0.2.0-alpha  
 > **预计完成时间**: 12-16周（3-4个月）
@@ -173,7 +176,7 @@ networkx>=3.0
 chromadb>=0.4.0
 
 # 向量
-sentence-transformers>=2.0.0
+# sentence-transformers (已优化: Chroma 内置，无需单独安装)
 
 # LLM
 anthropic>=0.28.0

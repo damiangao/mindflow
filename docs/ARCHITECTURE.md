@@ -582,7 +582,7 @@ anthropic>=0.28.0
 openai>=1.0.0
 
 # 向量
-sentence-transformers>=2.0.0
+# sentence-transformers (Chroma 内置，无需单独安装)
 
 # 其他
 pydantic>=2.5.0

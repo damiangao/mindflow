@@ -10,7 +10,7 @@
 **已完成**:
 - ✅ 三层数据模型 (Pydantic): Methodology, Skill, Artifact
 - ✅ 图存储层 (NetworkX + JSON 持久化)
-- ✅ 向量索引层 (Chroma + sentence-transformers)
+- ✅ 向量索引层 (Chroma，内置 sentence-transformers) - [优化说明](../VECTOR_STORE_OPTIMIZATION.md)
 - ✅ 统一接口 (KnowledgeBase)
 - ✅ Artifact 轻量化优化 (summary + filepath)
 

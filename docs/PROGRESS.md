@@ -16,7 +16,7 @@
 - ✅ **向量索引层** (Chroma)
   - Skills 语义搜索
   - Artifacts 独立索引
-  - sentence-transformers 嵌入
+  - Chroma 内置 sentence-transformers 嵌入 ([优化说明](VECTOR_STORE_OPTIMIZATION.md))
   
 - ✅ **统一接口** (KnowledgeBase)
   - add_methodology / add_skill / add_artifact

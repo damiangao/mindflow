@@ -137,7 +137,7 @@ pip install -r requirements.txt
 | 层级 | 技术 | 用途 |
 |------|------|------|
 | **知识库** | NetworkX / Neo4j | 图数据库 |
-| **向量索引** | Chroma + sentence-transformers | 语义搜索 |
+| **向量索引** | Chroma (内置 sentence-transformers) | 语义搜索 |
 | **LLM** | Claude / GPT / DeepSeek | 意图理解/生成 |
 | **后端** | Python 3.10+ | 核心逻辑 |
 | **前端** | Gradio / Tauri | 用户界面 |
@@ -244,7 +244,7 @@ Mindflow 的设计和实现受到以下优秀项目的启发：
 #### 知识图谱与向量搜索
 - **[NetworkX](https://github.com/networkx/networkx)** - 图数据库的 Python 实现
 - **[Chroma](https://github.com/chroma-core/chroma)** - 轻量级向量数据库
-- **[sentence-transformers](https://github.com/UKPLab/sentence-transformers)** - 高质量的文本向量化模型
+  - Chroma 已内置 sentence-transformers 支持，无需单独安装 ([优化说明](docs/VECTOR_STORE_OPTIMIZATION.md))
 
 #### 自我演化与学习
 - **[Voyager](https://github.com/MineDojo/Voyager)** - 自我演化 Agent 的开创性工作

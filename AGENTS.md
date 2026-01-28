@@ -57,7 +57,7 @@ artifacts/
 ### ✅ 已完成
 - 三层数据模型 (Pydantic)
 - 图存储 (NetworkX + JSON)
-- 向量索引 (Chroma + sentence-transformers)
+- 向量索引 (Chroma，内置 sentence-transformers)
 - 统一接口 (KnowledgeBase)
 - Artifact 轻量化优化
 - 测试验证通过
@@ -74,7 +74,7 @@ artifacts/
 | 数据模型 | Pydantic | ✅ |
 | 图数据库 | NetworkX | ✅ |
 | 向量索引 | Chroma | ✅ |
-| 嵌入模型 | sentence-transformers | ✅ |
+| 嵌入模型 | Chroma 内置 (sentence-transformers) | ✅ |
 | 测试框架 | pytest | ⏳ |
 
 ## 常见问题

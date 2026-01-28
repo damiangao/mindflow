@@ -27,7 +27,7 @@
 - ✅ datetime 序列化修复
 
 #### 向量索引层 (`vector_store.py`)
-- ✅ Chroma + sentence-transformers
+- ✅ Chroma (内置 sentence-transformers) - [2026-01-28 优化](../VECTOR_STORE_OPTIMIZATION.md)
 - ✅ 语义搜索功能
 - ✅ 自动索引 Skills
 

@@ -4,6 +4,21 @@
 
 ---
 
+## [0.3.1-alpha] - 2026-01-28
+
+### 🎯 VectorStore 优化 - 简化技术栈
+
+#### 核心改进
+- ✅ **移除直接依赖**: 不再单独安装 sentence-transformers
+- ✅ **使用 Chroma 内置**: 通过 `embedding_functions.SentenceTransformerEmbeddingFunction`
+- ✅ **多语言支持**: 默认使用 `paraphrase-multilingual-MiniLM-L12-v2` (支持中文)
+- ✅ **代码简化**: 减少 20% 代码量，自动管理嵌入向量
+
+#### 文档更新
+- ✅ 新增 `docs/VECTOR_STORE_OPTIMIZATION.md` - 优化说明文档
+- ✅ 更新所有相关文档中的技术栈描述
+- ✅ 新增学习资料 `learning/chroma/day4_sentence_transformers_integration.md`
+
 ## [0.3.0-alpha] - 2026-01-22
 
 ### 🎉 Week 1 完成 - 核心知识库实现
@@ -11,7 +26,7 @@
 #### 核心功能
 - ✅ **三层数据模型**: Methodology / Skill / Artifact (Pydantic)
 - ✅ **图数据库**: NetworkX 实现，JSON 持久化
-- ✅ **向量索引**: Chroma + sentence-transformers
+- ✅ **向量索引**: Chroma (内置 sentence-transformers)
 - ✅ **统一接口**: KnowledgeBase 封装所有操作
 
 #### Artifact 优化 (重要改进)
@@ -67,7 +82,7 @@ class Artifact:
 
 #### 技术栈确定
 - **图数据库**: Neo4j(生产) / NetworkX(开发)
-- **向量搜索**: Chroma + sentence-transformers
+- **向量搜索**: Chroma (内置 sentence-transformers)
 - **LLM**: Claude / GPT / DeepSeek
 
 #### 关键决策

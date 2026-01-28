@@ -1,6 +1,9 @@
 # 📚 Mindflow 技术栈学习计划
 
-> **更新日期**: 2026-01-18  
+> **归档说明**: 本文档已归档，学习计划已更新  
+> **最新学习资料**: 请参考 `learning/` 目录  
+> **技术栈优化**: 2026-01-28 发现 Chroma 内置 sentence-transformers，无需单独学习 ([说明](../VECTOR_STORE_OPTIMIZATION.md))
+>
 > **当前阶段**: Phase 1 准备
 
 ---
@@ -50,7 +53,7 @@
 - 官方文档: https://docs.trychroma.com/
 - 快速开始: Chroma Quickstart (1天)
 
-**sentence-transformers**
+**sentence-transformers** (已优化: Chroma 内置，无需单独学习)
 - 文本向量化
 - 预训练模型选择
 - 相似度计算
@@ -97,7 +100,7 @@
 
 **Week 1**:
 - Day 1-2: NetworkX 基础
-- Day 3-4: Chroma + sentence-transformers
+- Day 3-4: Chroma (内置 sentence-transformers)
 - Day 5: Pydantic
 
 **Week 2**:
