@@ -1,11 +1,11 @@
 id: meth_iterate
-name: 迭代优化
-description: 从小开始，逐步迭代改进
+name: Iterative Improvement
+description: Start small and iterate progressively
 principles:
-  - 先实现最小可用版本
-  - 快速验证核心假设
-  - 根据反馈持续改进
-  - 避免一次性完美主义
-evaluation_rule: 检查是否采用渐进式开发
+  - Implement minimum viable version first
+  - Validate core assumptions quickly
+  - Continuously improve based on feedback
+  - Avoid perfectionism in one shot
+evaluation_rule: Check if progressive development approach is adopted
 weight: 0.8
 status: active

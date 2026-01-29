@@ -1,9 +1,9 @@
 ---
 name: daily-review
-description: 每日工作和学习的回顾总结。当用户提到日复盘、每日总结、今日回顾、工作记录时使用。
+description: Daily work and learning review. Use when user mentions daily review, daily summary, today's review, or work log.
 metadata:
   id: skill_daily_review
-  display_name: 日复盘
+  display_name: Daily Review
   preconditions:
     - has_daily_activities
   effects:
@@ -23,55 +23,55 @@ metadata:
   author: MindFlow
 ---
 
-# 日复盘
+# Daily Review
 
-## 概述
+## Overview
 
-每日工作和学习的回顾总结。通过结构化的复盘流程，帮助积累经验、发现问题、持续改进。
+Daily work and learning review. Through a structured review process, helps accumulate experience, identify problems, and continuously improve.
 
-## 执行步骤
+## Execution Steps
 
-1. 回顾今天完成的任务
-2. 记录遇到的问题和解决方案
-3. 总结学到的经验教训
-4. 规划明天的重点任务
-5. 输出结构化的复盘记录
+1. Review tasks completed today
+2. Record problems encountered and solutions
+3. Summarize lessons learned
+4. Plan key tasks for tomorrow
+5. Output structured review notes
 
-## 复盘模板
+## Review Template
 
 ```markdown
-# 日复盘 - {{date}}
+# Daily Review - {{date}}
 
-## 今日完成
-- [ ] 任务1
-- [ ] 任务2
+## Completed Today
+- [ ] Task 1
+- [ ] Task 2
 
-## 遇到的问题
-1. 问题描述
-   - 解决方案：...
+## Problems Encountered
+1. Problem description
+   - Solution: ...
 
-## 经验教训
-- 学到了什么
-- 下次可以改进的地方
+## Lessons Learned
+- What I learned
+- What can be improved next time
 
-## 明日计划
-1. 重点任务1
-2. 重点任务2
+## Tomorrow's Plan
+1. Key task 1
+2. Key task 2
 
-## 心情/状态
+## Mood/Status
 😊 / 😐 / 😔
 ```
 
-## 最佳实践
+## Best Practices
 
-### 固定时间
-- 建议在每天结束工作前 15-30 分钟进行
-- 保持一致的时间有助于养成习惯
+### Fixed Time
+- Recommended 15-30 minutes before end of workday
+- Consistent timing helps build habits
 
-### 聚焦重点
-- 不需要记录所有细节
-- 关注有价值的经验和教训
+### Focus on Key Points
+- No need to record every detail
+- Focus on valuable experiences and lessons
 
-### 行动导向
-- 每个问题都要有解决方案或下一步行动
-- 明日计划要具体可执行
+### Action-Oriented
+- Every problem should have a solution or next action
+- Tomorrow's plan should be specific and actionable

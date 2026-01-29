@@ -1,11 +1,11 @@
 id: meth_stdlib
-name: 优先使用标准库
-description: 优先使用成熟的标准库和工具，减少依赖
+name: Prefer Standard Library
+description: Prefer mature standard libraries and tools, reduce dependencies
 principles:
-  - 标准库优先于第三方库
-  - 成熟工具优先于自己实现
-  - 减少外部依赖
-  - 使用广泛认可的解决方案
-evaluation_rule: 检查是否使用标准库或成熟工具
+  - Standard library over third-party libraries
+  - Mature tools over custom implementation
+  - Reduce external dependencies
+  - Use widely recognized solutions
+evaluation_rule: Check if standard library or mature tools are used
 weight: 0.8
 status: active

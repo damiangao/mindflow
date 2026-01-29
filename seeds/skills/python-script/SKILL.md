@@ -1,9 +1,9 @@
 ---
 name: python-script
-description: 生成简洁的Python脚本解决具体问题。当用户提到写Python代码、生成脚本、自动化脚本时使用。
+description: Generate concise Python scripts to solve specific problems. Use when user mentions writing Python code, generating scripts, or automation scripts.
 metadata:
   id: skill_python_script
-  display_name: Python脚本生成
+  display_name: Python Script Generation
   preconditions:
     - has_requirement
   effects:
@@ -25,27 +25,27 @@ metadata:
   author: MindFlow
 ---
 
-# Python脚本生成
+# Python Script Generation
 
-## 概述
+## Overview
 
-生成简洁的Python脚本解决具体问题。遵循简单优先原则，优先使用标准库。
+Generate concise Python scripts to solve specific problems. Follow the simplicity-first principle and prefer standard library.
 
-## 执行步骤
+## Execution Steps
 
-1. 明确脚本的输入和输出
-2. 选择合适的标准库或工具
-3. 编写简洁的实现代码
-4. 添加必要的错误处理
-5. 包含使用示例
+1. Clarify script inputs and outputs
+2. Choose appropriate standard library or tools
+3. Write concise implementation code
+4. Add necessary error handling
+5. Include usage examples
 
-## 代码规范
+## Code Standards
 
-### 脚本结构
+### Script Structure
 
 ```python
 #!/usr/bin/env python3
-"""脚本���述
+"""Script description
 
 Usage:
     python script.py <input_file> <output_file>
@@ -55,8 +55,8 @@ from pathlib import Path
 
 
 def main(input_path: str, output_path: str) -> None:
-    """主函数"""
-    # 实现逻辑
+    """Main function"""
+    # Implementation logic
     pass
 
 
@@ -68,47 +68,47 @@ if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2])
 ```
 
-### 最佳实践
+### Best Practices
 
-1. **简单优先**
-   - 能用一行代码解决的不用十行
-   - 避免过度抽象
+1. **Simplicity First**
+   - Use one line of code instead of ten when possible
+   - Avoid over-abstraction
 
-2. **标准库优先**
-   - `pathlib` 处理路径
-   - `json` 处理 JSON
-   - `csv` 处理 CSV
-   - `argparse` 处理命令行参数
+2. **Standard Library First**
+   - `pathlib` for path handling
+   - `json` for JSON processing
+   - `csv` for CSV processing
+   - `argparse` for command-line arguments
 
-3. **错误处理**
+3. **Error Handling**
    ```python
    try:
        result = process(data)
    except FileNotFoundError as e:
-       print(f"错误: 文件不存在 - {e}")
+       print(f"Error: File not found - {e}")
        sys.exit(1)
    except Exception as e:
-       print(f"错误: {e}")
+       print(f"Error: {e}")
        sys.exit(1)
    ```
 
-4. **类型提示**
+4. **Type Hints**
    ```python
    def process(data: list[dict]) -> str:
-       """处理数据并返回结果"""
+       """Process data and return result"""
        pass
    ```
 
-## 常用模板
+## Common Templates
 
-### 文件处理脚本
+### File Processing Script
 
 ```python
 from pathlib import Path
 
 def process_file(input_path: Path) -> str:
     content = input_path.read_text(encoding="utf-8")
-    # 处理逻辑
+    # Processing logic
     return content
 
 if __name__ == "__main__":
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     print(result)
 ```
 
-### 数据转换脚本
+### Data Conversion Script
 
 ```python
 import json

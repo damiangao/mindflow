@@ -1,9 +1,9 @@
 ---
 name: task-decompose
-description: 将复杂任务分解为可执行的小步骤。当用户提到任务分解、拆分任务、规划步骤、项目规划时使用。
+description: Decompose complex tasks into executable small steps. Use when user mentions task decomposition, breaking down tasks, planning steps, or project planning.
 metadata:
   id: skill_task_decompose
-  display_name: 任务分解
+  display_name: Task Decomposition
   preconditions:
     - has_task_description
   effects:
@@ -23,111 +23,111 @@ metadata:
   author: MindFlow
 ---
 
-# 任务分解
+# Task Decomposition
 
-## 概述
+## Overview
 
-将复杂任务分解为可执行的小步骤。通过结构化的分解方法，让大任务变得可管理、可追踪。
+Decompose complex tasks into executable small steps. Through structured decomposition methods, make large tasks manageable and trackable.
 
-## 执行步骤
+## Execution Steps
 
-1. 理解任务的最终目标
-2. 识别关键里程碑
-3. 将每个里程碑分解为具体步骤
-4. 确定步骤之间的依赖关系
-5. 输出结构化的任务列表
+1. Understand the final goal of the task
+2. Identify key milestones
+3. Break down each milestone into specific steps
+4. Determine dependencies between steps
+5. Output structured task list
 
-## 分解原则
+## Decomposition Principles
 
-### SMART 原则
+### SMART Principles
 
-每个子任务应该是：
-- **S**pecific（具体的）：明确要做什么
-- **M**easurable（可衡量的）：知道何时完成
-- **A**chievable（可实现的）：在能力范围内
-- **R**elevant（相关的）：与目标相关
-- **T**ime-bound（有时限的）：有明确的截止时间
+Each subtask should be:
+- **S**pecific: Clear about what to do
+- **M**easurable: Know when it's complete
+- **A**chievable: Within capability range
+- **R**elevant: Related to the goal
+- **T**ime-bound: Has clear deadline
 
-### 分解粒度
+### Granularity
 
-- 每个子任务应该在 **2-4 小时** 内可完成
-- 如果超过 4 小时，继续分解
-- 如果少于 30 分钟，考虑合并
+- Each subtask should be completable within **2-4 hours**
+- If exceeds 4 hours, continue decomposing
+- If less than 30 minutes, consider merging
 
-## 分解模板
+## Decomposition Template
 
 ```markdown
-# 任务：{{task_name}}
+# Task: {{task_name}}
 
-## 目标
+## Goal
 {{final_goal}}
 
-## 里程碑
-1. [ ] 里程碑1 - 截止日期
-2. [ ] 里程碑2 - 截止日期
-3. [ ] 里程碑3 - 截止日期
+## Milestones
+1. [ ] Milestone 1 - Deadline
+2. [ ] Milestone 2 - Deadline
+3. [ ] Milestone 3 - Deadline
 
-## 详细步骤
+## Detailed Steps
 
-### 里程碑1：{{milestone_name}}
-- [ ] 步骤1.1：具体任务描述 (预计时间)
-- [ ] 步骤1.2：具体任务描述 (预计时间)
-  - 依赖：步骤1.1
+### Milestone 1: {{milestone_name}}
+- [ ] Step 1.1: Specific task description (Estimated time)
+- [ ] Step 1.2: Specific task description (Estimated time)
+  - Depends on: Step 1.1
 
-### 里程碑2：{{milestone_name}}
-- [ ] 步骤2.1：具体任务描述 (预计时间)
+### Milestone 2: {{milestone_name}}
+- [ ] Step 2.1: Specific task description (Estimated time)
 
-## 依赖关系
-- 步骤1.2 依赖 步骤1.1
-- 里程碑2 依赖 里程碑1
+## Dependencies
+- Step 1.2 depends on Step 1.1
+- Milestone 2 depends on Milestone 1
 
-## 风险和注意事项
-- 风险1：描述及应对措施
+## Risks and Notes
+- Risk 1: Description and mitigation measures
 ```
 
-## 示例
+## Example
 
-### 输入
-> 我想学习 Python 数据分析
+### Input
+> I want to learn Python data analysis
 
-### 输出
+### Output
 
 ```markdown
-# 任务：学习 Python 数据分析
+# Task: Learn Python Data Analysis
 
-## 目标
-能够使用 Python 进行基础数据分析，包括数据清洗、可视化和简单统计
+## Goal
+Be able to perform basic data analysis using Python, including data cleaning, visualization, and simple statistics
 
-## 里程碑
-1. [ ] 环境搭建 - 第1天
-2. [ ] 基础语法 - 第1周
-3. [ ] Pandas 入门 - 第2周
-4. [ ] 数据可视化 - 第3周
-5. [ ] 实战项目 - 第4周
+## Milestones
+1. [ ] Environment Setup - Day 1
+2. [ ] Basic Syntax - Week 1
+3. [ ] Pandas Basics - Week 2
+4. [ ] Data Visualization - Week 3
+5. [ ] Practical Project - Week 4
 
-## 详细步骤
+## Detailed Steps
 
-### 里程碑1：环境搭建
-- [ ] 安装 Python 3.x (30分钟)
-- [ ] 安装 VS Code 和 Python 插件 (30分钟)
-- [ ] 安装 Jupyter Notebook (30分钟)
-- [ ] 验证环境：运行 Hello World (15分钟)
+### Milestone 1: Environment Setup
+- [ ] Install Python 3.x (30 minutes)
+- [ ] Install VS Code and Python extension (30 minutes)
+- [ ] Install Jupyter Notebook (30 minutes)
+- [ ] Verify environment: Run Hello World (15 minutes)
 
-### 里程碑2：基础语法
-- [ ] 学习变量和数据类型 (2小时)
-- [ ] 学习控制流程 (2小时)
-- [ ] 学习函数定义 (2小时)
-- [ ] 完成10道练习题 (3小时)
+### Milestone 2: Basic Syntax
+- [ ] Learn variables and data types (2 hours)
+- [ ] Learn control flow (2 hours)
+- [ ] Learn function definition (2 hours)
+- [ ] Complete 10 practice problems (3 hours)
 ```
 
-## 常见问题
+## Common Issues
 
-### 任务太大不知道从哪开始
-- 先写出最终目标
-- 倒推需要哪些中间成果
-- 每个中间成果就是一个里程碑
+### Task Too Large, Don't Know Where to Start
+- Write the final goal first
+- Work backwards to identify intermediate deliverables
+- Each intermediate deliverable is a milestone
 
-### 分解后任务太多
-- 按优先级排序
-- 先完成最重要的 3-5 个
-- 其他任务可以后续调整
+### Too Many Tasks After Decomposition
+- Sort by priority
+- Complete the most important 3-5 first
+- Other tasks can be adjusted later

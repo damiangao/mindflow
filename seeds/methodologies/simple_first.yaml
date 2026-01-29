@@ -1,11 +1,11 @@
 id: meth_simple
-name: 简单优于复杂
-description: 优先选择简单直接的解决方案，避免过度设计
+name: Simple Over Complex
+description: Prefer simple and direct solutions, avoid over-engineering
 principles:
-  - 能用一行代码解决的不用十行
-  - 避免过度设计和抽象
-  - 先让它工作，再优化
-  - 优先使用内置功能
-evaluation_rule: 检查代码行数和复杂度，优先选择更简洁的方案
+  - Use one line of code instead of ten when possible
+  - Avoid over-design and abstraction
+  - Make it work first, then optimize
+  - Prefer built-in features
+evaluation_rule: Check code lines and complexity, prefer simpler solutions
 weight: 0.9
 status: active
